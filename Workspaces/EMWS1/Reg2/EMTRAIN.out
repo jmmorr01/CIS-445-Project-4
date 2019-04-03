@@ -1,0 +1,113 @@
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+Variable Summary
+
+          Measurement    Frequency
+ Role        Level         Count
+
+INPUT      BINARY            1    
+INPUT      INTERVAL          9    
+INPUT      NOMINAL           6    
+TARGET     INTERVAL          1    
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+Predicted and decision variables
+
+Type          Variable      Label
+
+TARGET       SalePrice      SalePrice           
+PREDICTED    P_SalePrice    Predicted: SalePrice
+RESIDUAL     R_SalePrice    Residual: SalePrice 
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+
+The DMREG Procedure
+
+                 Model Information
+
+Training Data Set             WORK.EM_DMREG.VIEW   
+DMDB Catalog                  WORK.REG2_DMDB       
+Target Variable               SalePrice (SalePrice)
+Target Measurement Level      Interval             
+Error                         Normal               
+Link Function                 Identity             
+Number of Model Parameters    25                   
+Number of Observations        218                  
+
+
+                             Analysis of Variance
+ 
+                                   Sum of
+Source                 DF         Squares     Mean Square    F Value    Pr > F
+
+Model                  23     14515965860       631128950       2.61    0.0002
+Error                 194     46849198939       241490716                     
+Corrected Total       217     61365164799                                     
+
+
+              Model Fit Statistics
+
+R-Square        0.2366     Adj R-Sq        0.1460
+AIC          4230.4836     BIC          4238.3912
+SBC          4311.7115     C(p)           24.0000
+
+
+                Type 3 Analysis of Effects
+ 
+                                Sum of
+Effect                DF       Squares    F Value    Pr > F
+
+Age                    1    2155105141       8.92    0.0032
+Basement               1    72857385.7       0.30    0.5835
+BasementType           2    1002242178       2.08    0.1283
+Baths                  1    31973541.8       0.13    0.7164
+CentralAir             1     218058587       0.90    0.3432
+ConstructionType       2    1997212250       4.14    0.0174
+FirePlace              1    88920952.1       0.37    0.5447
+FirstFloor             1     126774395       0.52    0.4696
+GarageSize             1     375828346       1.56    0.2137
+GarageType             5     545463707       0.45    0.8117
+LotSize                2     109561383       0.23    0.7973
+Neighborhood           1    74885883.4       0.31    0.5783
+SecondFloor            1    1441219492       5.97    0.0155
+TotalArea              1     645536444       2.67    0.1037
+UpperArea              0         .            .       .    
+WallType               2     527064899       1.09    0.3378
+
+
+               Analysis of Maximum Likelihood Estimates
+ 
+                                        Standard
+Parameter             DF    Estimate       Error    t Value    Pr > |t|
+
+Intercept              1     81836.6     14142.6       5.79      <.0001
+Age                    1      -431.9       144.6      -2.99      0.0032
+Basement               1      2.1869      3.9814       0.55      0.5835
+BasementType     0     1     -9160.9      4700.8      -1.95      0.0528
+BasementType     1     1      4492.0      3795.1       1.18      0.2380
+Baths                  1       471.7      1296.3       0.36      0.7164
+CentralAir       0     1     -1213.3      1276.9      -0.95      0.3432
+ConstructionType 1     1    -17878.6      6244.1      -2.86      0.0047
+ConstructionType 2     1    -14287.5      6375.4      -2.24      0.0262
+FirePlace              1     -1702.4      2805.5      -0.61      0.5447
+FirstFloor             1      7.3903     10.1999       0.72      0.4696
+GarageSize             1      3891.7      3119.6       1.25      0.2137
+GarageType       0     1      3417.4      5622.8       0.61      0.5440
+GarageType       1     1      -801.9      6804.7      -0.12      0.9063
+GarageType       2     1      3383.6      4619.8       0.73      0.4648
+GarageType       3     1      6532.9      6152.4       1.06      0.2896
+GarageType       4     1    -16566.7     13636.2      -1.21      0.2259
+LotSize          1     1      -174.3      8647.6      -0.02      0.9839
+LotSize          2     1     -8400.2     12739.1      -0.66      0.5104
+Neighborhood     1     1      -828.9      1488.6      -0.56      0.5783
+SecondFloor            1    -52.9688     21.6823      -2.44      0.0155
+TotalArea              1      9.9411      6.0803       1.63      0.1037
+UpperArea              0           0           .        .         .    
+WallType         1     1     -2473.2      2374.3      -1.04      0.2989
+WallType         2     1     -2542.0      2089.8      -1.22      0.2253

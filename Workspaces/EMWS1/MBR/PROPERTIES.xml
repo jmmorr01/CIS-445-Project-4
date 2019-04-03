@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?><_ROOT_  NumberOfNeighbors="10" Epsilon="0" Buckets="8" Method="RDTREE" Weighted="Y" ShowNodes="N"
+ Neighbors="Y" ForceRun="N" RunAction="Train" Component="MBR" RawCreateTime="1762356187.9"
+ CreateTime="05NOV2015:15:23:08" RunId="f8e87b23-12ee-423a-8f23-d35d019af462">
+<VARIABLEPROPERTIES/>
+<FILEPROPERTIES/>
+</_ROOT_>

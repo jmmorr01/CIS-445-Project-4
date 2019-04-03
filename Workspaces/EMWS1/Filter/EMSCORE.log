@@ -1,0 +1,1628 @@
+MPRINT(EM_DIAGRAM):    data _null_;
+MPRINT(EM_DIAGRAM):   call symput('NLDATE', strip(put(date(), NLDATE.)));
+MPRINT(EM_DIAGRAM):   call symput('NLTIME', strip(put(datetime(), NLTIME.)));
+MPRINT(EM_DIAGRAM):   run;
+MPRINT(EM_DIAGRAM):   data _null_;
+MPRINT(EM_DIAGRAM):   nldate= sasmsg("sashelp.dmine", "log_date_note", 'N', "November 19, 2018" );
+MPRINT(EM_DIAGRAM):   nltime= sasmsg("sashelp.dmine", "log_time_note", 'N', "23:47:38" );
+MPRINT(EM_DIAGRAM):   put "*------------------------------------------------------------*";
+MPRINT(EM_DIAGRAM):   put "* Score Log";
+MPRINT(EM_DIAGRAM):   put nldate;
+MPRINT(EM_DIAGRAM):   put nltime;
+MPRINT(EM_DIAGRAM):   put "*------------------------------------------------------------*";
+MPRINT(EM_DIAGRAM):   run;
+*------------------------------------------------------------*
+* Score Log
+Date:                November 19, 2018
+Time:                23:47:38
+*------------------------------------------------------------*
+MPRINT(EM_DIAGRAM):    filename O2MM1OD_ "J:\CIS-445-Project-4-master\CIS-445-Project-4-master\Project_4\Workspaces\EMWS1\Filter\EMSCORE.out" encoding="UTF-8" NOBOM;
+MPRINT(EM_DIAGRAM):   proc printto print=O2MM1OD_ new;
+MPRINT(EM_DIAGRAM):   run;
+82772      *------------------------------------------------------------*;
+MPRINT(EM_DIAGRAM):    *------------------------------------------------------------*;
+82773      * Filter: Scoring VALIDATE data;
+MPRINT(EM_DIAGRAM):   * Filter: Scoring VALIDATE data;
+82774      *------------------------------------------------------------*;
+MPRINT(EM_DIAGRAM):   *------------------------------------------------------------*;
+82775      data EMWS1.Filter_VALIDATE
+82776      / view=EMWS1.Filter_VALIDATE
+82777      ;
+MPRINT(EM_DIAGRAM):   data EMWS1.Filter_VALIDATE / view=EMWS1.Filter_VALIDATE ;
+82778      set EMWS1.Part_VALIDATE
+82779      ;
+MPRINT(EM_DIAGRAM):   set EMWS1.Part_VALIDATE ;
+82780      run;
+MPRINT(EM_DIAGRAM):   run;
+
+NOTE: DATA STEP view saved on file EMWS1.FILTER_VALIDATE.
+NOTE: A stored DATA STEP view cannot run under a different operating system.
+NOTE: DATA statement used (Total process time):
+      real time           0.12 seconds
+      cpu time            0.04 seconds
+      
+
+MPRINT(EM_DIAGRAM):   quit;
+82781      quit;
+
+82782      proc sort data=EMWS1.Filter_INTERVAL;
+MPRINT(EM_DIAGRAM):    proc sort data=EMWS1.Filter_INTERVAL;
+82783      by name;
+MPRINT(EM_DIAGRAM):   by name;
+82784      run;
+MPRINT(EM_DIAGRAM):   run;
+
+NOTE: Input data set is already sorted, no sorting done.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+82785      proc print data=EMWS1.Filter_INTERVAL(obs=500) noobs label;
+MPRINT(EM_DIAGRAM):   proc print data=EMWS1.Filter_INTERVAL(obs=500) noobs label;
+82786      where (INTERVALMIN ne . or INTERVALMAX ne . or KEEPMISSING='N');
+MPRINT(EM_DIAGRAM):   where (INTERVALMIN ne . or INTERVALMAX ne . or KEEPMISSING='N');
+82787      title9 "%sysfunc(sasmsg(sashelp.dmine, rpt_filterintervallimits_title,    NOQUOTE))";
+MPRINT(EM_DIAGRAM):   title9 "Filter Limits for Interval Variables";
+82788      title10 "%sysfunc(sasmsg(sashelp.dmine, rpt_maxObsPrinted_title, NOQUOTE))";
+MPRINT(EM_DIAGRAM):   title10 "(maximum 500 observations printed)";
+MPRINT(EM_DIAGRAM):   run;
+82789      run;
+
+NOTE: There were 9 observations read from the data set EMWS1.FILTER_INTERVAL.
+      WHERE (INTERVALMIN not = .) or (INTERVALMAX not = .) or (KEEPMISSING='N');
+NOTE: The PROCEDURE PRINT printed page 28.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+      
+
+82790      title9;
+MPRINT(EM_DIAGRAM):   title9;
+82791      title10;
+MPRINT(EM_DIAGRAM):   title10;
+82792      proc sort data=EMWS1.Filter_CLASS;
+MPRINT(EM_DIAGRAM):    proc sort data=EMWS1.Filter_CLASS;
+82793      by NAME VALUE;
+MPRINT(EM_DIAGRAM):   by NAME VALUE;
+82794      run;
+MPRINT(EM_DIAGRAM):   run;
+
+NOTE: There were 4 observations read from the data set EMWS1.FILTER_CLASS.
+NOTE: The data set EMWS1.FILTER_CLASS has 4 observations and 7 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.15 seconds
+      cpu time            0.00 seconds
+      
+
+82795      proc datasets library=EMWS1 nolist;
+MPRINT(EM_DIAGRAM):   proc datasets library=EMWS1 nolist;
+82796      modify Filter_CLASS;
+MPRINT(EM_DIAGRAM):   modify Filter_CLASS;
+82797      label NAME = "%sysfunc(sasmsg(sashelp.dmine, rpt_variable_vlabel,      NOQUOTE))" ROLE = "%sysfunc(sasmsg(sashelp.dmine, meta_role_vlabel,         NOQUOTE))" VALUE = "%sysfunc(sasmsg(sashelp.dmine, rpt_level_vlabel,        NOQUOTE))" LABEL =
+82798         "%sysfunc(sasmsg(sashelp.dmine, meta_label_vlabel,        NOQUOTE))" COUNT = "%sysfunc(sasmsg(sashelp.dmine, rpt_traincount_vlabel,    NOQUOTE))" PERCENT = "%sysfunc(sasmsg(sashelp.dmine, rpt_trainpercent_vlabel,  NOQUOTE))";
+MPRINT(EM_DIAGRAM):   label NAME = "Variable" ROLE = "Role" VALUE = "Level" LABEL = "Label" COUNT = "Train Count" PERCENT = "Train Percent";
+MPRINT(EM_DIAGRAM):   run;
+82799      run;
+
+NOTE: MODIFY was successful for EMWS1.FILTER_CLASS.DATA.
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           1.71 seconds
+      cpu time            0.46 seconds
+      
+
+82800      proc print data=EMWS1.Filter_CLASS(obs=500) noobs label;
+MPRINT(EM_DIAGRAM):   proc print data=EMWS1.Filter_CLASS(obs=500) noobs label;
+82801      title9 "%sysfunc(sasmsg(sashelp.dmine, rpt_filterexcludeclass_title,    NOQUOTE))";
+MPRINT(EM_DIAGRAM):   title9 "Excluded Class Values";
+82802      title10 "%sysfunc(sasmsg(sashelp.dmine, rpt_maxObsPrinted_title, NOQUOTE))";
+MPRINT(EM_DIAGRAM):   title10 "(maximum 500 observations printed)";
+MPRINT(EM_DIAGRAM):   run;
+82803      run;
+
+NOTE: There were 4 observations read from the data set EMWS1.FILTER_CLASS.
+NOTE: The PROCEDURE PRINT printed page 29.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      
+
+82804      title9;
+MPRINT(EM_DIAGRAM):   title9;
+82805      title10;
+MPRINT(EM_DIAGRAM):   title10;
+82806      data WORK.DATA_FILTERED / view=WORK.DATA_FILTERED;
+MPRINT(EM_DIAGRAM):    data WORK.DATA_FILTERED / view=WORK.DATA_FILTERED;
+82807      set EMWS1.Part_TRAIN;
+MPRINT(EM_DIAGRAM):   set EMWS1.Part_TRAIN;
+82808      
+82809      
+82810      length _FILTERFMT1  $200;
+MPRINT(EM_DIAGRAM):   length _FILTERFMT1 $200;
+82811      drop _FILTERFMT1 ;
+MPRINT(EM_DIAGRAM):   drop _FILTERFMT1 ;
+82812      _FILTERFMT1= put(GarageType,BEST.);
+MPRINT(EM_DIAGRAM):   _FILTERFMT1= put(GarageType,BEST.);
+82813      length _FILTERNORM1  $32;
+MPRINT(EM_DIAGRAM):   length _FILTERNORM1 $32;
+82814      drop _FILTERNORM1 ;
+MPRINT(EM_DIAGRAM):   drop _FILTERNORM1 ;
+82815      %dmnormcp(_FILTERFMT1,_FILTERNORM1);
+MPRINT(DMNORMCP):   _FILTERNORM1=dmnorm(_FILTERFMT1,
+MPRINT(DMNORLEN):  32
+MPRINT(DMNORMCP):  );
+MPRINT(EM_DIAGRAM):  ;
+82816      
+82817      
+82818      length _FILTERFMT2  $200;
+MPRINT(EM_DIAGRAM):   length _FILTERFMT2 $200;
+82819      drop _FILTERFMT2 ;
+MPRINT(EM_DIAGRAM):   drop _FILTERFMT2 ;
+82820      _FILTERFMT2= put(LotSize,BEST.);
+MPRINT(EM_DIAGRAM):   _FILTERFMT2= put(LotSize,BEST.);
+82821      length _FILTERNORM2  $32;
+MPRINT(EM_DIAGRAM):   length _FILTERNORM2 $32;
+82822      drop _FILTERNORM2 ;
+MPRINT(EM_DIAGRAM):   drop _FILTERNORM2 ;
+82823      %dmnormcp(_FILTERFMT2,_FILTERNORM2);
+MPRINT(DMNORMCP):   _FILTERNORM2=dmnorm(_FILTERFMT2,
+MPRINT(DMNORLEN):  32
+MPRINT(DMNORMCP):  );
+MPRINT(EM_DIAGRAM):  ;
+82824      if
+82825      _FILTERNORM1 not in ( '4' , '5')
+82826       and
+82827      _FILTERNORM2 not in ( '2' , '3')
+82828      and
+82829      ( Age eq . or (22.887167558<=Age) and (Age<=71.966043451))
+82830      and ( Basement eq . or (-747.89189<=Basement) and (Basement<=1043.1671194))
+82831      and ( Baths eq . or (-1.115123247<=Baths) and (Baths<=4.2986094852))
+82832      and ( FirePlace eq . or (-0.423561472<=FirePlace) and (FirePlace<=2.1483321144))
+82833      and ( FirstFloor eq . or (460.8149598<=FirstFloor) and (FirstFloor<=1635.6621044))
+82834      and ( GarageSize eq . or (-0.616145439<=GarageSize) and (GarageSize<=2.7262371819))
+82835      and ( SecondFloor eq . or (-625.7857762<=SecondFloor) and (SecondFloor<=760.21696885))
+82836      and ( TotalArea eq . or (419.22056596<=TotalArea) and (TotalArea<=2421.2656726))
+82837      and ( UpperArea eq . or (-435.1874089<=UpperArea) and (UpperArea<=1044.7653905))
+82838      then do;
+MPRINT(EM_DIAGRAM):   if _FILTERNORM1 not in ( '4' , '5') and _FILTERNORM2 not in ( '2' , '3') and ( Age eq . or (22.887167558<=Age) and (Age<=71.966043451)) and ( Basement eq . or (-747.89189<=Basement) and (Basement<=1043.1671194)) and ( Baths eq . or 
+(-1.115123247<=Baths) and (Baths<=4.2986094852)) and ( FirePlace eq . or (-0.423561472<=FirePlace) and (FirePlace<=2.1483321144)) and ( FirstFloor eq . or (460.8149598<=FirstFloor) and (FirstFloor<=1635.6621044)) and ( GarageSize eq . or 
+(-0.616145439<=GarageSize) and (GarageSize<=2.7262371819)) and ( SecondFloor eq . or (-625.7857762<=SecondFloor) and (SecondFloor<=760.21696885)) and ( TotalArea eq . or (419.22056596<=TotalArea) and (TotalArea<=2421.2656726)) and ( UpperArea eq . or 
+(-435.1874089<=UpperArea) and (UpperArea<=1044.7653905)) then do;
+82839      if M_FILTER eq . then M_FILTER = 0;
+MPRINT(EM_DIAGRAM):   if M_FILTER eq . then M_FILTER = 0;
+82840      else M_FILTER = M_FILTER + 0;
+MPRINT(EM_DIAGRAM):   else M_FILTER = M_FILTER + 0;
+82841      end;
+MPRINT(EM_DIAGRAM):   end;
+82842      else M_FILTER = 1;
+MPRINT(EM_DIAGRAM):   else M_FILTER = 1;
+82843      label M_FILTER = 'Filtered Indicator';
+MPRINT(EM_DIAGRAM):   label M_FILTER = 'Filtered Indicator';
+82844      if M_FILTER = 0;
+MPRINT(EM_DIAGRAM):   if M_FILTER = 0;
+82845      run;
+MPRINT(EM_DIAGRAM):   run;
+
+NOTE: DATA STEP view saved on file WORK.DATA_FILTERED.
+NOTE: A stored DATA STEP view cannot run under a different operating system.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+82846      data WORK.DATA_EXCLUDED / view=WORK.DATA_EXCLUDED;
+MPRINT(EM_DIAGRAM):   data WORK.DATA_EXCLUDED / view=WORK.DATA_EXCLUDED;
+82847      set EMWS1.Part_TRAIN;
+MPRINT(EM_DIAGRAM):   set EMWS1.Part_TRAIN;
+82848      
+82849      
+82850      length _FILTERFMT1  $200;
+MPRINT(EM_DIAGRAM):   length _FILTERFMT1 $200;
+82851      drop _FILTERFMT1 ;
+MPRINT(EM_DIAGRAM):   drop _FILTERFMT1 ;
+82852      _FILTERFMT1= put(GarageType,BEST.);
+MPRINT(EM_DIAGRAM):   _FILTERFMT1= put(GarageType,BEST.);
+82853      length _FILTERNORM1  $32;
+MPRINT(EM_DIAGRAM):   length _FILTERNORM1 $32;
+82854      drop _FILTERNORM1 ;
+MPRINT(EM_DIAGRAM):   drop _FILTERNORM1 ;
+82855      %dmnormcp(_FILTERFMT1,_FILTERNORM1);
+MPRINT(DMNORMCP):   _FILTERNORM1=dmnorm(_FILTERFMT1,
+MPRINT(DMNORLEN):  32
+MPRINT(DMNORMCP):  );
+MPRINT(EM_DIAGRAM):  ;
+82856      
+82857      
+82858      length _FILTERFMT2  $200;
+MPRINT(EM_DIAGRAM):   length _FILTERFMT2 $200;
+82859      drop _FILTERFMT2 ;
+MPRINT(EM_DIAGRAM):   drop _FILTERFMT2 ;
+82860      _FILTERFMT2= put(LotSize,BEST.);
+MPRINT(EM_DIAGRAM):   _FILTERFMT2= put(LotSize,BEST.);
+82861      length _FILTERNORM2  $32;
+MPRINT(EM_DIAGRAM):   length _FILTERNORM2 $32;
+82862      drop _FILTERNORM2 ;
+MPRINT(EM_DIAGRAM):   drop _FILTERNORM2 ;
+82863      %dmnormcp(_FILTERFMT2,_FILTERNORM2);
+MPRINT(DMNORMCP):   _FILTERNORM2=dmnorm(_FILTERFMT2,
+MPRINT(DMNORLEN):  32
+MPRINT(DMNORMCP):  );
+MPRINT(EM_DIAGRAM):  ;
+82864      if
+82865      _FILTERNORM1 not in ( '4' , '5')
+82866       and
+82867      _FILTERNORM2 not in ( '2' , '3')
+82868      and
+82869      ( Age eq . or (22.887167558<=Age) and (Age<=71.966043451))
+82870      and ( Basement eq . or (-747.89189<=Basement) and (Basement<=1043.1671194))
+82871      and ( Baths eq . or (-1.115123247<=Baths) and (Baths<=4.2986094852))
+82872      and ( FirePlace eq . or (-0.423561472<=FirePlace) and (FirePlace<=2.1483321144))
+82873      and ( FirstFloor eq . or (460.8149598<=FirstFloor) and (FirstFloor<=1635.6621044))
+82874      and ( GarageSize eq . or (-0.616145439<=GarageSize) and (GarageSize<=2.7262371819))
+82875      and ( SecondFloor eq . or (-625.7857762<=SecondFloor) and (SecondFloor<=760.21696885))
+82876      and ( TotalArea eq . or (419.22056596<=TotalArea) and (TotalArea<=2421.2656726))
+82877      and ( UpperArea eq . or (-435.1874089<=UpperArea) and (UpperArea<=1044.7653905))
+82878      then do;
+MPRINT(EM_DIAGRAM):   if _FILTERNORM1 not in ( '4' , '5') and _FILTERNORM2 not in ( '2' , '3') and ( Age eq . or (22.887167558<=Age) and (Age<=71.966043451)) and ( Basement eq . or (-747.89189<=Basement) and (Basement<=1043.1671194)) and ( Baths eq . or 
+(-1.115123247<=Baths) and (Baths<=4.2986094852)) and ( FirePlace eq . or (-0.423561472<=FirePlace) and (FirePlace<=2.1483321144)) and ( FirstFloor eq . or (460.8149598<=FirstFloor) and (FirstFloor<=1635.6621044)) and ( GarageSize eq . or 
+(-0.616145439<=GarageSize) and (GarageSize<=2.7262371819)) and ( SecondFloor eq . or (-625.7857762<=SecondFloor) and (SecondFloor<=760.21696885)) and ( TotalArea eq . or (419.22056596<=TotalArea) and (TotalArea<=2421.2656726)) and ( UpperArea eq . or 
+(-435.1874089<=UpperArea) and (UpperArea<=1044.7653905)) then do;
+82879      if M_FILTER eq . then M_FILTER = 0;
+MPRINT(EM_DIAGRAM):   if M_FILTER eq . then M_FILTER = 0;
+82880      else M_FILTER = M_FILTER + 0;
+MPRINT(EM_DIAGRAM):   else M_FILTER = M_FILTER + 0;
+82881      end;
+MPRINT(EM_DIAGRAM):   end;
+82882      else M_FILTER = 1;
+MPRINT(EM_DIAGRAM):   else M_FILTER = 1;
+82883      label M_FILTER = 'Filtered Indicator';
+MPRINT(EM_DIAGRAM):   label M_FILTER = 'Filtered Indicator';
+82884      if M_FILTER = 1;
+MPRINT(EM_DIAGRAM):   if M_FILTER = 1;
+82885      run;
+MPRINT(EM_DIAGRAM):   run;
+
+NOTE: DATA STEP view saved on file WORK.DATA_EXCLUDED.
+NOTE: A stored DATA STEP view cannot run under a different operating system.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.03 seconds
+      
+
+MPRINT(EM_DIAGRAM):   *------------------------------------------------------------*;
+MPRINT(EM_DIAGRAM):   * createcountreport;
+MPRINT(EM_DIAGRAM):   *------------------------------------------------------------*;
+MPRINT(EM_DIAGRAM):   reset noprint;
+MPRINT(EM_DIAGRAM):   select count(*) into :_tmpnobs from WORK.DATA_FILTERED;
+NOTE: View WORK.DATA_FILTERED.VIEW used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.03 seconds
+      
+NOTE: There were 218 observations read from the data set EMWS1.PART_TRAIN.
+MPRINT(EM_DIAGRAM):   quit;
+82886      data WORK.FilterCOUNT;
+MPRINT(EM_DIAGRAM):    data WORK.FilterCOUNT;
+82887      length DATAROLE $16;
+MPRINT(EM_DIAGRAM):   length DATAROLE $16;
+82888      label DATAROLE = "%sysfunc(sasmsg(sashelp.dmine, rpt_datarole_vlabel, NOQUOTE))" FILTERED = "%sysfunc(sasmsg(sashelp.dmine, rpt_filtered_vlabel, NOQUOTE))" EXCLUDED = "%sysfunc(sasmsg(sashelp.dmine, rpt_excluded_vlabel, NOQUOTE))";
+MPRINT(EM_DIAGRAM):   label DATAROLE = "Data Role" FILTERED = "Filtered" EXCLUDED = "Excluded";
+82889      DATAROLE = 'TRAIN';
+MPRINT(EM_DIAGRAM):   DATAROLE = 'TRAIN';
+82890      DATA = 218;
+MPRINT(EM_DIAGRAM):   DATA = 218;
+82891      FILTERED = 193;
+MPRINT(EM_DIAGRAM):   FILTERED = 193;
+82892      EXCLUDED = 25;
+MPRINT(EM_DIAGRAM):   EXCLUDED = 25;
+82893      output;
+MPRINT(EM_DIAGRAM):   output;
+82894      run;
+MPRINT(EM_DIAGRAM):   run;
+
+NOTE: The data set WORK.FILTERCOUNT has 1 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      
+
+82895      proc print data=WORK.FilterCOUNT noobs label;
+MPRINT(EM_DIAGRAM):   proc print data=WORK.FilterCOUNT noobs label;
+82896      title9 ' ';
+MPRINT(EM_DIAGRAM):   title9 ' ';
+82897      title10 "%sysfunc(sasmsg(sashelp.dmine, rpt_numberobs_title, NOQUOTE))";
+MPRINT(EM_DIAGRAM):   title10 "Number Of Observations";
+MPRINT(EM_DIAGRAM):   run;
+82898      run;
+
+NOTE: There were 1 observations read from the data set WORK.FILTERCOUNT.
+NOTE: The PROCEDURE PRINT printed page 30.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+82899      title9;
+MPRINT(EM_DIAGRAM):   title9;
+82900      title10;
+MPRINT(EM_DIAGRAM):   title10;
+82901      *------------------------------------------------------------*;
+MPRINT(EM_DIAGRAM):    *------------------------------------------------------------*;
+82902      * createstattable;
+MPRINT(EM_DIAGRAM):   * createstattable;
+82903      *------------------------------------------------------------*;
+MPRINT(EM_DIAGRAM):   *------------------------------------------------------------*;
+82904      *------------------------------------------------------------* ;
+MPRINT(EM_DIAGRAM):   *------------------------------------------------------------* ;
+82905      * Filter: DMDBClass Macro ;
+MPRINT(EM_DIAGRAM):   * Filter: DMDBClass Macro ;
+82906      *------------------------------------------------------------* ;
+MPRINT(EM_DIAGRAM):   *------------------------------------------------------------* ;
+82907      %macro DMDBClass;
+82908          GarageType(ASC) LotSize(ASC)
+82909      %mend DMDBClass;
+82910      *------------------------------------------------------------* ;
+MPRINT(EM_DIAGRAM):   *------------------------------------------------------------* ;
+82911      * Filter: DMDBVar Macro ;
+MPRINT(EM_DIAGRAM):   * Filter: DMDBVar Macro ;
+82912      *------------------------------------------------------------* ;
+MPRINT(EM_DIAGRAM):   *------------------------------------------------------------* ;
+82913      %macro DMDBVar;
+82914          Age Basement Baths FirePlace FirstFloor GarageSize SalePrice SecondFloor
+82915         TotalArea UpperArea
+82916      %mend DMDBVar;
+82917      *------------------------------------------------------------*;
+MPRINT(EM_DIAGRAM):   *------------------------------------------------------------*;
+82918      * Filter: Create DMDB;
+MPRINT(EM_DIAGRAM):   * Filter: Create DMDB;
+82919      *------------------------------------------------------------*;
+MPRINT(EM_DIAGRAM):   *------------------------------------------------------------*;
+82920      proc dmdb batch data=WORK.DATA_FILTERED
+82921      dmdbcat=WORK.Filter_DMDB
+82922      varout=WORK.FILTER_VARSTATS
+82923      maxlevel = 513
+82924      ;
+MPRINT(EM_DIAGRAM):   proc dmdb batch data=WORK.DATA_FILTERED dmdbcat=WORK.Filter_DMDB varout=WORK.FILTER_VARSTATS maxlevel = 513 ;
+MPRINT(EM_DIAGRAM):   class
+82925      class %DMDBClass;
+MPRINT(DMDBCLASS):   GarageType(ASC) LotSize(ASC)
+MPRINT(EM_DIAGRAM):  ;
+MPRINT(EM_DIAGRAM):   var
+82926      var %DMDBVar;
+MPRINT(DMDBVAR):   Age Basement Baths FirePlace FirstFloor GarageSize SalePrice SecondFloor TotalArea UpperArea
+MPRINT(EM_DIAGRAM):  ;
+82927      target
+82928      SalePrice
+82929      ;
+MPRINT(EM_DIAGRAM):   target SalePrice ;
+82930      run;
+MPRINT(EM_DIAGRAM):   run;
+
+NOTE: Records processed = 193   Memory used = 511K.
+NOTE: View WORK.DATA_FILTERED.VIEW used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.04 seconds
+      
+NOTE: There were 218 observations read from the data set EMWS1.PART_TRAIN.
+NOTE: There were 193 observations read from the data set WORK.DATA_FILTERED.
+NOTE: The data set WORK.FILTER_VARSTATS has 10 observations and 9 variables.
+NOTE: PROCEDURE DMDB used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.06 seconds
+      
+
+MPRINT(EM_DIAGRAM):   quit;
+MPRINT(EM_DIAGRAM):   *--- end code ---*;
+82931      quit;
+82932      *--- end code ---*;
+
+82933      data WORK.FILTER_VARSTATS;
+MPRINT(EM_DIAGRAM):    data WORK.FILTER_VARSTATS;
+82934      length DATAROLE $10 TYPE $8 NAME $32;
+MPRINT(EM_DIAGRAM):   length DATAROLE $10 TYPE $8 NAME $32;
+82935      label DATAROLE = "%sysfunc(sasmsg(sashelp.dmine, rpt_datarole_vlabel, NOQUOTE))";
+MPRINT(EM_DIAGRAM):   label DATAROLE = "Data Role";
+82936      label N = "%sysfunc(sasmsg(sashelp.dmine, rpt_nonMiss_vlabel, NOQUOTE))";
+MPRINT(EM_DIAGRAM):   label N = "Non Missing";
+82937      label NMISS = "%sysfunc(sasmsg(sashelp.dmine, rpt_missing_vlabel, NOQUOTE))";
+MPRINT(EM_DIAGRAM):   label NMISS = "Missing";
+82938      label MIN = "%sysfunc(sasmsg(sashelp.dmine, rpt_minimum_vlabel, NOQUOTE))";
+MPRINT(EM_DIAGRAM):   label MIN = "Minimum";
+82939      label MAX = "%sysfunc(sasmsg(sashelp.dmine, rpt_maximum_vlabel, NOQUOTE))";
+MPRINT(EM_DIAGRAM):   label MAX = "Maximum";
+82940      label MEAN = "%sysfunc(sasmsg(sashelp.dmine, rpt_mean_vlabel,    NOQUOTE))";
+MPRINT(EM_DIAGRAM):   label MEAN = "Mean";
+82941      label STD = "%sysfunc(sasmsg(sashelp.dmine, rpt_std_vlabel,     NOQUOTE))";
+MPRINT(EM_DIAGRAM):   label STD = "Standard Deviation";
+82942      label SKEWNESS = "%sysfunc(sasmsg(sashelp.dmine, rpt_skewness_vlabel, NOQUOTE))";
+MPRINT(EM_DIAGRAM):   label SKEWNESS = "Skewness";
+82943      label KURTOSIS = "%sysfunc(sasmsg(sashelp.dmine, rpt_kurtosis_vlabel, NOQUOTE))";
+MPRINT(EM_DIAGRAM):   label KURTOSIS = "Kurtosis";
+82944      label NUMCAT = "%sysfunc(sasmsg(sashelp.dmine, rpt_numcat_vlabel,   NOQUOTE))";
+MPRINT(EM_DIAGRAM):   label NUMCAT = "Number of Levels";
+82945      retain DATAROLE "TRAIN" type "FILTERED";
+MPRINT(EM_DIAGRAM):   retain DATAROLE "TRAIN" type "FILTERED";
+82946      set WORK.FILTER_VARSTATS;
+MPRINT(EM_DIAGRAM):   set WORK.FILTER_VARSTATS;
+82947      run;
+MPRINT(EM_DIAGRAM):   run;
+
+NOTE: Variable NUMCAT is uninitialized.
+NOTE: There were 10 observations read from the data set WORK.FILTER_VARSTATS.
+NOTE: The data set WORK.FILTER_VARSTATS has 10 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.03 seconds
+      
+
+82948      proc append base=EMWS1.Filter_STATS data=WORK.FILTER_VARSTATS;
+MPRINT(EM_DIAGRAM):   proc append base=EMWS1.Filter_STATS data=WORK.FILTER_VARSTATS;
+82949      run;
+MPRINT(EM_DIAGRAM):   run;
+
+NOTE: Appending WORK.FILTER_VARSTATS to EMWS1.FILTER_STATS.
+NOTE: There were 10 observations read from the data set WORK.FILTER_VARSTATS.
+NOTE: 10 observations added.
+NOTE: The data set EMWS1.FILTER_STATS has 20 observations and 11 variables.
+NOTE: PROCEDURE APPEND used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.00 seconds
+      
+
+82950      proc sort data=EMWS1.Filter_STATS;
+MPRINT(EM_DIAGRAM):    proc sort data=EMWS1.Filter_STATS;
+82951      by DATAROLE NAME;
+MPRINT(EM_DIAGRAM):   by DATAROLE NAME;
+82952      run;
+MPRINT(EM_DIAGRAM):   run;
+
+NOTE: There were 20 observations read from the data set EMWS1.FILTER_STATS.
+NOTE: The data set EMWS1.FILTER_STATS has 20 observations and 11 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.13 seconds
+      cpu time            0.04 seconds
+      
+
+82953      proc transpose data=EMWS1.Filter_STATS out=EMWS1.Filter_STATS(rename=(NAME=VARIABLE _LABEL_=STATISTIC));
+MPRINT(EM_DIAGRAM):   proc transpose data=EMWS1.Filter_STATS out=EMWS1.Filter_STATS(rename=(NAME=VARIABLE _LABEL_=STATISTIC));
+82954      by DATAROLE NAME;
+MPRINT(EM_DIAGRAM):   by DATAROLE NAME;
+82955      id TYPE;
+MPRINT(EM_DIAGRAM):   id TYPE;
+82956      run;
+MPRINT(EM_DIAGRAM):   run;
+
+NOTE: There were 20 observations read from the data set EMWS1.FILTER_STATS.
+NOTE: The data set EMWS1.FILTER_STATS has 80 observations and 6 variables.
+NOTE: PROCEDURE TRANSPOSE used (Total process time):
+      real time           0.14 seconds
+      cpu time            0.04 seconds
+      
+
+82957      proc datasets library=EMWS1 nolist;
+MPRINT(EM_DIAGRAM):   proc datasets library=EMWS1 nolist;
+82958      modify Filter_STATS;
+MPRINT(EM_DIAGRAM):   modify Filter_STATS;
+82959      label VARIABLE = "%sysfunc(sasmsg(sashelp.dmine, rpt_variable_vlabel, NOQUOTE))" STATISTIC = "%sysfunc(sasmsg(sashelp.dmine, rpt_statistics_vlabel, NOQUOTE))" FILTERED="Filtered" ORIGINAL = "%sysfunc(sasmsg(sashelp.dmine, rpt_original_vlabel,
+82959    ! NOQUOTE))";
+MPRINT(EM_DIAGRAM):   label VARIABLE = "Variable" STATISTIC = "Statistics" FILTERED= "Filtered" ORIGINAL = "Original";
+MPRINT(EM_DIAGRAM):   run;
+82960      run;
+
+NOTE: MODIFY was successful for EMWS1.FILTER_STATS.DATA.
+
+NOTE: PROCEDURE DATASETS used (Total process time):
+      real time           1.41 seconds
+      cpu time            0.48 seconds
+      
+
+82961      proc sort data=EMWS1.Filter_STATS;
+MPRINT(EM_DIAGRAM):   proc sort data=EMWS1.Filter_STATS;
+82962      by DATAROLE VARIABLE;
+MPRINT(EM_DIAGRAM):   by DATAROLE VARIABLE;
+82963      run;
+MPRINT(EM_DIAGRAM):   run;
+
+NOTE: There were 80 observations read from the data set EMWS1.FILTER_STATS.
+NOTE: The data set EMWS1.FILTER_STATS has 80 observations and 6 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.03 seconds
+      
+
+82964      %let _cn = %sysfunc(getoption(CENTER));
+82965      options nocenter;
+MPRINT(EM_DIAGRAM):   options nocenter;
+82966      proc print data=EMWS1.Filter_STATS(obs=500) noobs label;
+MPRINT(EM_DIAGRAM):   proc print data=EMWS1.Filter_STATS(obs=500) noobs label;
+82967      var STATISTIC ORIGINAL
+82968      FILTERED
+82969      ;
+MPRINT(EM_DIAGRAM):   var STATISTIC ORIGINAL FILTERED ;
+82970      by DATAROLE VARIABLE;
+MPRINT(EM_DIAGRAM):   by DATAROLE VARIABLE;
+82971      where ORIGINAL ne .;
+MPRINT(EM_DIAGRAM):   where ORIGINAL ne .;
+82972      title9 "%sysfunc(sasmsg(sashelp.dmine, rpt_filterstat_title,    NOQUOTE, FILTERED))";
+MPRINT(EM_DIAGRAM):   title9 "Statistics for Original and FILTERED Data";
+82973      title10 "%sysfunc(sasmsg(sashelp.dmine, rpt_maxObsPrinted_title, NOQUOTE))";
+MPRINT(EM_DIAGRAM):   title10 "(maximum 500 observations printed)";
+MPRINT(EM_DIAGRAM):   run;
+82974      run;
+
+NOTE: There were 80 observations read from the data set EMWS1.FILTER_STATS.
+      WHERE ORIGINAL not = .;
+NOTE: The PROCEDURE PRINT printed page 31.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.03 seconds
+      
+
+82975      options &_cn;
+MPRINT(EM_DIAGRAM):   options NOCENTER;
+82976      title9;
+MPRINT(EM_DIAGRAM):   title9;
+82977      title10;
+MPRINT(EM_DIAGRAM):   title10;
+82978      *------------------------------------------------------------*;
+MPRINT(EM_DIAGRAM):    *------------------------------------------------------------*;
+82979      * createhistogramtable;
+MPRINT(EM_DIAGRAM):   * createhistogramtable;
+82980      *------------------------------------------------------------*;
+MPRINT(EM_DIAGRAM):   *------------------------------------------------------------*;
+82981      data WORK.FilterDMDBC;
+MPRINT(EM_DIAGRAM):   data WORK.FilterDMDBC;
+82982      set WORK.FilterDMDBC(where=(report='Y'));
+MPRINT(EM_DIAGRAM):   set WORK.FilterDMDBC(where=(report='Y'));
+82983      run;
+MPRINT(EM_DIAGRAM):   run;
+
+NOTE: There were 0 observations read from the data set WORK.FILTERDMDBC.
+      WHERE report='Y';
+NOTE: The data set WORK.FILTERDMDBC has 0 observations and 26 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+82984      filename vdist catalog 'SASHELP.EMUTIL.EM_VARDIST.SOURCE';
+MPRINT(EM_DIAGRAM):    filename vdist catalog 'SASHELP.EMUTIL.EM_VARDIST.SOURCE';
+82985      %inc vdist;
+NOTE: %INCLUDE (level 1) file VDIST is file SASHELP.EMUTIL.EM_VARDIST.SOURCE.
+82986     +%macro var_profile(DATA=, OUTPUT=_INTERVAL, VARS=, METADATA=, COMPUTESTAT=Y, STAT=_STAT, PCTLSTAT=_PCTLSTAT, FREQ=,
+82987     +                   BINDATA=, BIN=Y, NUMBARS=8, MINMAX=N);
+82988     +   %let _em_nodeid = EM;
+82989     +   %if %symexist(EM_NODEID) %then %do;
+82990     +       %let _em_nodeid = &em_nodeid;
+82991     +   %end;
+82992     +
+82993     +   %let msgString = %sysfunc(sasmsg(sashelp.dmine, computingsummarystats_note, NOQUOTE, &_em_nodeid));
+82994     +   %put &EM_CODEBAR;
+82995     +   %put * &msgString;
+82996     +   %put &EM_CODEBAR;
+82997     +
+82998     +   /* Process metadata data set */
+82999     +   filename _mac catalog 'WORK.MACROS.VARIABLES.SOURCE';
+83000     +   %if %sysfunc(exist(&metadata))>0 and (&metadata ne ) %then %do;
+83001     +       %let FREQ=;
+83002     +       %let _nobs=0;
+83003     +       data _null;
+83004     +          set &metadata(where=(LEVEL = 'INTERVAL' and ROLE ne 'FREQ')) end=eof;
+83005     +          if eof then call symput('_nobs', put(_N_, best.));
+83006     +       run;
+83007     +       %if "&_nobs" ne "0" %then %do;
+83008     +           data _null_;
+83009     +              file _mac;
+83010     +              length _VARS $80; retain _vars;
+83011     +              if _n_ =1 then put '%macro _vars;';
+83012     +              set &metadata end=eof;
+83013     +              where LEVEL = 'INTERVAL' or ROLE='FREQ';
+83014     +              if ROLE='FREQ' then call symput('FREQ', trim(NAME));
+83015     +              else do;
+83016     +                 if length(strip(_vars)) + length(strip(NAME)) + 1 <80  then
+83017     +                    _vars = strip(_vars)!! ' ' !!strip(NAME);
+83018     +                 else do;
+83019     +                    put _Vars;
+83020     +                    _vars = strip(NAME);
+83021     +                 end;
+83022     +              end;
+83023     +
+83024     +              if eof then do;
+83025     +                 put _Vars;
+83026     +                 put '%mend _vars;';
+83027     +              end;
+83028     +           run;
+83029     +       %end;
+83030     +       %else %do;
+83031     +           data _null_;
+83032     +              file _mac;
+83033     +              put '%macro _vars;';
+83034     +              put '%mend _vars;';
+83035     +           run;
+83036     +       %end;
+83037     +   %end;
+83038     +   %else %do;
+83039     +       data _null_;
+83040     +          file _mac;
+83041     +          put '%macro _vars;';
+83042     +          put '%mend _vars;';
+83043     +       run;
+83044     +   %end;
+83045     +   %inc _mac;
+83046     +   filename _mac;
+83047     +
+83048     +   %if "&VARS" eq "" and %_vars eq %then %goto doend;
+83049     +
+83050     +   /* Check if FREQ variable is in the data set */
+83051     +   %if &freq ne %then %do;
+83052     +       data _null_;
+83053     +          dsid = open("&data");
+83054     +          if dsid>0 then do;
+83055     +               if varnum(dsid, "&FREQ")<1 then
+83056     +                  call symput('FREQ', '');
+83057     +               dsid = close(dsid);
+83058     +          end;
+83059     +       run;
+83060     +   %end;
+83061     +
+83062     +   %if &bindata eq %then %do;
+83063     +       %let bindata = _BOUNDS;
+83064     +       proc datasets lib=work nolist mt=(DATA VIEW);
+83065     +          delete _BOUNDS;
+83066     +       run;
+83067     +   %end;
+83068     +
+83069     +   %global _EM_VARDISTOBS_MAX;
+83070     +   %let _EM_VARDISTOBS_MAX = 1000000;
+83071     +
+83072     +   %if %symexist(EM_VARDISTOBS_MAX) %then %do;
+83073     +       %let _EM_VARDISTOBS_MAX= %eval(&EM_VARDISTOBS_MAX);
+83074     +   %end;
+83075     +
+83076     +   %if &computeStat = Y %then %do;
+83077     +       proc dmdb data=&DATA(obs=&_EM_VARDISTOBS_MAX) varout=&STAT(rename=(NAME=VARIABLE));
+83078     +          var %_Vars &vars;
+83079     +          %if &FREQ ne %then %do;
+83080     +              freq &FREQ;
+83081     +          %end;
+83082     +       run;
+83083     +       proc sort data=&stat;
+83084     +          by VARIABLE;
+83085     +       run;
+83086     +
+83087     +       %if ^%sysfunc(indexc(&STAT, .)) %then %do;
+83088     +           %let _library = WORK;
+83089     +           %let _member  = &STAT;
+83090     +      %end;
+83091     +      %else %do;
+83092     +          %let _library = %scan(&STAT, 1, .);
+83093     +          %let _member  = %scan(&STAT, 2, .);
+83094     +      %end;
+83095     +
+83096     +      proc datasets library=&_library nolist;
+83097     +         modify &_member;
+83098     +         label NMISS    = "%sysfunc(sasmsg(sashelp.dmine, rpt_missing_vlabel, NOQUOTE))";
+83099     +         label MIN      = "%sysfunc(sasmsg(sashelp.dmine, rpt_minimum_vlabel, NOQUOTE))";
+83100     +         label MAX      = "%sysfunc(sasmsg(sashelp.dmine, rpt_maximum_vlabel, NOQUOTE))";
+83101     +         label MEAN     = "%sysfunc(sasmsg(sashelp.dmine, rpt_mean_vlabel,    NOQUOTE))";
+83102     +         label STD      = "%sysfunc(sasmsg(sashelp.dmine, rpt_std_vlabel,     NOQUOTE))";
+83103     +         label SKEWNESS = "%sysfunc(sasmsg(sashelp.dmine, rpt_skewness_vlabel, NOQUOTE))";
+83104     +         label KURTOSIS = "%sysfunc(sasmsg(sashelp.dmine, rpt_kurtosis_vlabel, NOQUOTE))";
+83105     +      run;
+83106     +      quit;
+83107     +   %end;
+83108     +
+83109     +   %if &BIN ne N %then %do;
+83110     +       %if %sysfunc(exist(&bindata))<1 %then %do;
+83111     +           %let msgString = %sysfunc(sasmsg(sashelp.dmine, computingmidpoints_note, NOQUOTE, &_em_nodeid));
+83112     +           %put &EM_CODEBAR;
+83113     +           %put * &msgString;
+83114     +           %put &EM_CODEBAR;
+83115     +           filename fref catalog 'work.em.profileformat.source';
+83116     +
+83117     +            %let _maxlevel = %eval(&numbars + 1);
+83118     +            proc dmdb data=&data(obs=&_EM_VARDISTOBS_MAX) classout=_CLASSOUT maxlevel=&_maxlevel;
+83119     +               class %_vars &vars;
+83120     +            run;
+83121     +            proc freq data=_CLASSOUT ORDER=DATA noprint;
+83122     +               table NAME / OUT = _COUNT(where=(COUNT<&_maxlevel));
+83123     +            run;
+83124     +           proc sort data=_COUNT(keep=NAME COUNT rename=(COUNT=_NUMCLASSBINS_));
+83125     +              by NAME;
+83126     +           run;
+83127     +           proc sort data=_CLASSOUT;
+83128     +              by NAME;
+83129     +          run;
+83130     +          proc transpose data=_CLASSOUT out=_DISCRETEMID(DROP=_NAME_ RENAME=(NAME=VARIABLE)) prefix=_MIDPOINT;
+83131     +             var NRAW;
+83132     +             by NAME;
+83133     +          run;
+83134     +          proc delete data=WORK._CLASSOUT;
+83135     +          run;
+83136     +          data _null_;
+83137     +             dsid = open('_DISCRETEMID');
+83138     +             if dsid then do;
+83139     +                call symput('NUMCLASSBARS', left(trim(put(attrn(dsid, 'NVARS')-1, best12.))));
+83140     +                dsid = close(dsid);
+83141     +             end;
+83142     +          run;
+83143     +          data _DISCRETEMID;
+83144     +             merge _DISCRETEMID _COUNT(in=_b rename=(NAME=VARIABLE));
+83145     +             keep VARIABLE _MIDPOINT1--_MIDPOINT&numclassbars _NUMCLASSBINS_;
+83146     +             by VARIABLE;
+83147     +             if _b then output;
+83148     +          run;
+83149     +
+83150     +          data _EMVARDIST / view=_EMVARDIST;
+83151     +             set &DATA(keep=%_VARS &vars &FREQ  obs=&_EM_VARDISTOBS_MAX);
+83152     +          run;
+83153     +          proc stdize data=_EMVARDIST outstat=&pctlstat  out=_null_ pctlpts=(0 5 25 50 75 95 100);
+83154     +             var %_vars &vars;
+83155     +             %if &FREQ ne %then %do;
+83156     +                 freq &FREQ / notrunc;
+83157     +             %end;
+83158     +          run;
+83159     +          proc datasets lib=WORK NOLIST;
+83160     +             delete _EMVARDIST / mt=view;
+83161     +          run;
+83162     +          quit;
+83163     +          %if %upcase(&minmax) = Y %then %do;
+83164     +              proc transpose data=&pctlstat out=_MINMAXDATA(rename=(_NAME_=VARIABLE COL1=MIN COL2=MAX));
+83165     +                 where  _type_ in('P0', 'P100');
+83166     +              run;
+83167     +              data _MINMAXDATA(keep=Variable Value Pos);
+83168     +                 set _MINMAXDATA;
+83169     +                 label VARIABLE  = "%sysfunc(sasmsg(sashelp.dmine, rpt_variable_vlabel, NOQUOTE))";
+83170     +                 Value = min; Pos=1; output;
+83171     +                 Value = max; Pos=3; output;
+83172     +              run;
+83173     +          %end;
+83174     +          proc transpose data=&pctlstat out=&bindata(rename=(_NAME_=VARIABLE COL1=MIN COL2=P5
+83175     +                                                             COL3=P95 COL4=MAX));
+83176     +             where  _type_ in('P0', 'P5', 'P95', 'P100');
+83177     +          run;
+83178     +          proc sort data=&bindata;
+83179     +             by VARIABLE;
+83180     +          run;
+83181     +
+83182     +          %let new_numbars=%eval(&NUMBARS+12);
+83183     +          data &bindata;
+83184     +             set &bindata;
+83185     +             length Format $12;
+83186     +             array _midpoint{&new_NUMBARS};
+83187     +             array _bounds{&new_NUMBARS};
+83188     +             if (max - min)>1e-10 then do;
+83189     +                step = abs(P95-P5)/&NUMBARS;
+83190     +                lstep = abs(p5- min)/5;
+83191     +                ustep = abs(max-p95)/5;
+83192     +                /* No outlying values */;
+83193     +                if lstep<=step and ustep<=step then do;
+83194     +                   step = abs(MIN-MAX)/&NUMBARS;
+83195     +                   START=MIN;
+83196     +                   do i=1 to &numbars;
+83197     +                      _bounds(i)   = MIN + i*step;      if abs(_bounds{i})< 1e-10 then _bounds(i)= 0;
+83198     +                      _midpoint(i) = MIN+ (i-0.5)*step; if abs(_midpoint{i})< 1e-10 then _midpoint(i)= 0;
+83199     +                   end;
+83200     +                   %let new_numbars = &numbars;
+83201     +                end;
+83202     +                else do;
+83203     +                   if lstep<=step then do;
+83204     +                      step = abs(MIN-P95)/&NUMBARS;
+83205     +                      /* Start Histogram at MIN value */
+83206     +                      do i=1 to &NUMBARS;
+83207     +                         _bounds(i)   = MIN + i*step;       if abs(_bounds{i})< 1e-10 then _bounds(i)= 0;
+83208     +                         _midpoint(i) = MIN+ (i-0.5)*step;  if abs(_midpoint{i})< 1e-10 then _midpoint(i)= 0;
+83209     +                      end;
+83210     +                      /* Make BINS with upper outliers width */
+83211     +                      do i=1 to 5;
+83212     +                         numbars = &numbars + i;
+83213     +                         _bounds(numbars)   = P95 + i*ustep;  if abs(_bounds{numbars})< 1e-10 then _bounds(numbars)= 0;
+83214     +                         _midpoint(numbars) = P95 + (i-0.5)*ustep + abs(ustep-step)/2;  if abs(_bounds{numbars})< 1e-10 then _bounds(numbars)= 0;
+83215     +                      end;
+83216     +                       %let new_numbars = %eval(&numbars+5);
+83217     +                   end;
+83218     +                   else do;
+83219     +                      /* Make BINS with lower outliers width */
+83220     +                      do i=1 to 5;
+83221     +                         _bounds(i)   = P5 - (5-i)*lstep; if abs(_bounds{i})< 1e-10 then _bounds(i)= 0;
+83222     +                         _midpoint(i) = P5 - (5 - i + 0.5)*lstep - abs(lstep-step)/2; if abs(_midpoint{i})< 1e-10 then _midpoint(i)= 0;
+83223     +                      end;
+83224     +                      if ustep<= step then do;
+83225     +                         step = abs(P5-MAX)/&NUMBARS;
+83226     +                         /* End Histogram at MAX value */
+83227     +                         do i=1 to &NUMBARS;
+83228     +                            numbars = i+5;
+83229     +                            _bounds(numbars)   = P5 + i*step; if abs(_bounds{numbars})< 1e-10 then _bounds(numbars)= 0;
+83230     +                            _midpoint(numbars) = P5 + (i-0.5)*step; if abs(_midpoint{numbars})< 1e-10 then _midpoint(numbars)= 0;
+83231     +                         end;
+83232     +                          %let new_numbars = %eval(&numbars+5);
+83233     +                      end;
+83234     +                      else do;
+83235     +                         do i=1 to &NUMBARS;
+83236     +                            numbars = i+5;
+83237     +                            _bounds(numbars)  = P5 + i*step; if abs(_bounds{numbars})< 1e-10 then _bounds(numbars)= 0;
+83238     +                            _midpoint(numbars) = P5 + (i-0.5)*step; if abs(_midpoint{numbars})< 1e-10 then _midpoint(numbars)= 0;
+83239     +                         end;
+83240     +                         /* Make BINS with upper outliers width */
+83241     +                         do i=1 to 5;
+83242     +                            numbars = &numbars+5+i;
+83243     +                            _bounds(numbars)   = P95 + i*ustep; if abs(_bounds{numbars})< 1e-10 then _bounds(numbars)= 0;
+83244     +                            _midpoint(numbars) = P95 + (i-0.5)*ustep + abs(ustep-step)/2;if abs(_midpoint{numbars})< 1e-10 then _midpoint(numbars)= 0;
+83245     +                         end;
+83246     +                         %let new_numbars = %eval(&numbars+10);
+83247     +                      end;
+83248     +                   end;
+83249     +                end;
+83250     +             end;
+83251     +             else do;
+83252     +                _bounds(1)   = MIN;
+83253     +                _midpoint(1) = MIN;
+83254     +             end;
+83255     +             Format = 'F'!!trim(left(put(_n_,6.)))!!'_';
+83256     +          run;
+83257     +          %if %sysfunc(exist(_DISCRETEMID)) %then %do;
+83258     +              data &bindata;
+83259     +                 merge &bindata _DISCRETEMID(in = _b);
+83260     +                 by VARIABLE;
+83261     +                 if _b then _DISCRETE=1;
+83262     +                 else _DISCRETE=0;
+83263     +              run;
+83264     +          %end;
+83265     +
+83266     +          data _null_;
+83267     +             file fref;
+83268     +             set &bindata end=eof;
+83269     +             array _bounds{&NEW_NUMBARS};
+83270     +             array _midpoint{&NEW_NUMBARS};
+83271     +             if _n_=1 then
+83272     +                put 'proc format;';
+83273     +
+83274     +             put 'value ' Format;
+83275     +             if _DISCRETE then do;
+83276     +                 do i=1 to &numbars;
+83277     +                    _MID = _midpoint{i};
+83278     +                    if _MID ne . and i<= _NUMCLASSBINS_ then
+83279     +                       put _MID '="' _MID '"';
+83280     +                 end;
+83281     +                 put ';';
+83282     +             end;
+83283     +             else do;
+83284     +                if min eq max then do;
+83285     +                   put 'low - high ="' MIN '";';
+83286     +                end;
+83287     +                else do;
+83288     +                   _LB  = MIN;
+83289     +                   _MID = _midpoint{1};
+83290     +                   _UB  = _bounds{1};
+83291     +                   put 'LOW -' _UB '="' _MID '"';
+83292     +
+83293     +                   do i=1 to &NEW_NUMBARS-1;
+83294     +                      _LB  = _bounds{i};
+83295     +                      j=i+1;
+83296     +                      _MID = _midpoint{j};
+83297     +                      _UB  = _bounds{j};
+83298     +                      if (_UB ne .) and (_LB ne _UB) then do;
+83299     +                         if _UB>=MAX then
+83300     +                            put _LB '-HIGH="' _MID '"';
+83301     +                         else
+83302     +                            put _LB '-' _UB '="' _MID '"';
+83303     +                      end;
+83304     +                   end;
+83305     +                end;
+83306     +             end;
+83307     +             put ';';
+83308     +             if eof then put 'run;';
+83309     +          run;
+83310     +
+83311     +          %inc fref;
+83312     +
+83313     +          filename fref;
+83314     +      %end;
+83315     +
+83316     +      data _binneddata / view=_binneddata;
+83317     +         set &DATA(obs=&_EM_VARDISTOBS_MAX);
+83318     +
+83319     +         %let dsid    =%sysfunc(open(&bindata));
+83320     +         %let namenum = %sysfunc(varnum(&dsid, VARIABLE));
+83321     +         %let fmtnum  = %sysfunc(varnum(&dsid, FORMAT));
+83322     +         %let obs = %sysfunc(fetch(&dsid));
+83323     +
+83324     +         %if (&obs=0) %then %do;
+83325     +             format
+83326     +         %end;
+83327     +
+83328     +         %let _count = 0;
+83329     +         %do %while(&obs=0);
+83330     +             %let _count = %eval(&_count +1);
+83331     +             %let _name = %sysfunc(getvarc(&dsid, &namenum));
+83332     +             %let _fmtname = %sysfunc(getvarc(&dsid, &fmtnum));
+83333     +             %do;
+83334     +                &_name &_fmtname..
+83335     +             %end;
+83336     +             %let obs = %sysfunc(fetch(&dsid));
+83337     +         %end;
+83338     +         %let dsid=%sysfunc(close(&dsid));
+83339     +         ;
+83340     +      run;
+83341     +   %end;
+83342     +
+83343     +    %if &bin ne N %then %do;
+83344     +        proc dmdb data=_binneddata(obs=&_EM_VARDISTOBS_MAX) classout=_temptab(rename=(NAME=VARIABLE FREQUENCY=COUNT FREQPERCENT=PERCENT));
+83345     +    %end;
+83346     +    %else %do;
+83347     +        proc dmdb data = &data(obs=&_EM_VARDISTOBS_MAX) classout=_temptab(rename=(NAME=VARIABLE FREQUENCY=COUNT FREQPERCENT=PERCENT));
+83348     +    %end;
+83349     +      class %_vars &vars;
+83350     +      %if &FREQ ne %then %do;
+83351     +          freq &FREQ;
+83352     +      %end;
+83353     +   run;
+83354     +   data &output;
+83355     +      label VALUE        = "%sysfunc(sasmsg(sashelp.dmine, rpt_value_vlabel,    NOQUOTE))";
+83356     +      label VARIABLE     = "%sysfunc(sasmsg(sashelp.dmine, rpt_variable_vlabel, NOQUOTE))";
+83357     +      label COUNT        = "%sysfunc(sasmsg(sashelp.dmine, rpt_count_vlabel,    NOQUOTE))";
+83358     +      label PERCENT      = "%sysfunc(sasmsg(sashelp.dmine, rpt_percent_vlabel,  NOQUOTE))";
+83359     +      set _temptab;
+83360     +      format VALUE 12.3 count;
+83361     +      value = inputn(level, 'best12.');
+83362     +      keep VARIABLE COUNT PERCENT VALUE;
+83363     +   run;
+83364     +   %if &BIN ne N and %sysfunc(exist(_MINMAXDATA)) and &minmax=Y %then %do;
+83365     +       data &output;
+83366     +          set &output(in=_a) _MINMAXDATA;
+83367     +          if _a then Pos=2;
+83368     +       run;
+83369     +       proc sort data=&output out=&output(drop=pos);
+83370     +          by VARIABLE POS VALUE;
+83371     +          where VALUE ne .;
+83372     +       run;
+83373     +   %end;
+83374     +   proc datasets lib=work nolist mt=(DATA VIEW);
+83375     +      delete _TEMPTAB _BINNEDDATA _MINMAXDATA;
+83376     +   run;
+83377     +   quit;
+83378     +
+83379     +   %doend:
+83380     +%mend var_profile;
+NOTE: %INCLUDE (level 1) ending.
+83381      filename vdist;
+MPRINT(EM_DIAGRAM):   filename vdist;
+NOTE: Fileref VDIST has been deassigned.
+83382      %let em_nodeid = Filter;
+83383      %var_profile(DATA=EMWS1.Part_TRAIN, OUTPUT=WORK._HISTDATA, METADATA=WORK.FilterDMDBC, COMPUTESTAT=N, BINDATA=_bindata, STAT=_STAT, FREQ=, BIN=Y, NUMBARS= 16);
+*------------------------------------------------------------*
+* Filter: Computing Summary Statistics
+*------------------------------------------------------------*
+MPRINT(VAR_PROFILE):   filename _mac catalog 'WORK.MACROS.VARIABLES.SOURCE';
+MPRINT(VAR_PROFILE):   data _null;
+MPRINT(VAR_PROFILE):   set WORK.FilterDMDBC(where=(LEVEL = 'INTERVAL' and ROLE ne 'FREQ')) end=eof;
+MPRINT(VAR_PROFILE):   if eof then call symput('_nobs', put(_N_, best.));
+MPRINT(VAR_PROFILE):   run;
+
+NOTE: There were 0 observations read from the data set WORK.FILTERDMDBC.
+      WHERE (LEVEL='INTERVAL') and (ROLE not = 'FREQ');
+NOTE: The data set WORK._NULL has 0 observations and 26 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+MPRINT(VAR_PROFILE):   data _null_;
+MPRINT(VAR_PROFILE):   file _mac;
+MPRINT(VAR_PROFILE):   put '%macro _vars;';
+MPRINT(VAR_PROFILE):   put '%mend _vars;';
+MPRINT(VAR_PROFILE):   run;
+
+NOTE: The file _MAC is:
+      Catalog Name=WORK.MACROS.VARIABLES.SOURCE,
+      Catalog Page Size=4096,
+      Number of Catalog Pages=5,
+      Created=Mon, Nov 19, 2018 11:47:33 PM,
+      Last Modified=Mon, Nov 19, 2018 11:47:34 PM,
+      Filename=C:\Users\jmmorr01\AppData\Local\Temp\SAS Temporary Files\_TD7616_COB-MBA058_\Prc2\macros.sas7bcat,
+      Release Created=9.0401M3,Host Created=X64_8PRO
+
+NOTE: 2 records were written to the file _MAC.
+      The minimum record length was 12.
+      The maximum record length was 13.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+NOTE: %INCLUDE (level 1) file _MAC is file WORK.MACROS.VARIABLES.SOURCE.
+83384     +%macro _vars;
+83385     +%mend _vars;
+NOTE: %INCLUDE (level 1) ending.
+MPRINT(VAR_PROFILE):   filename _mac;
+NOTE: Fileref _MAC has been deassigned.
+MPRINT(EM_DIAGRAM):  ;
+
+83386      %var_profile(DATA=WORK.DATA_FILTERED, OUTPUT=WORK._HISTDATA, METADATA=WORK.FilterDMDBC, COMPUTESTAT=N, STAT=_STAT, BIN=Y, BINDATA=_bindata, NUMBARS= 16);
+MPRINT(EM_DIAGRAM):   
+*------------------------------------------------------------*
+* Filter: Computing Summary Statistics
+*------------------------------------------------------------*
+MPRINT(VAR_PROFILE):   filename _mac catalog 'WORK.MACROS.VARIABLES.SOURCE';
+MPRINT(VAR_PROFILE):   data _null;
+MPRINT(VAR_PROFILE):   set WORK.FilterDMDBC(where=(LEVEL = 'INTERVAL' and ROLE ne 'FREQ')) end=eof;
+MPRINT(VAR_PROFILE):   if eof then call symput('_nobs', put(_N_, best.));
+MPRINT(VAR_PROFILE):   run;
+
+NOTE: There were 0 observations read from the data set WORK.FILTERDMDBC.
+      WHERE (LEVEL='INTERVAL') and (ROLE not = 'FREQ');
+NOTE: The data set WORK._NULL has 0 observations and 26 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+MPRINT(VAR_PROFILE):   data _null_;
+MPRINT(VAR_PROFILE):   file _mac;
+MPRINT(VAR_PROFILE):   put '%macro _vars;';
+MPRINT(VAR_PROFILE):   put '%mend _vars;';
+MPRINT(VAR_PROFILE):   run;
+
+NOTE: The file _MAC is:
+      Catalog Name=WORK.MACROS.VARIABLES.SOURCE,
+      Catalog Page Size=4096,
+      Number of Catalog Pages=5,
+      Created=Mon, Nov 19, 2018 11:47:33 PM,
+      Last Modified=Mon, Nov 19, 2018 11:47:43 PM,
+      Filename=C:\Users\jmmorr01\AppData\Local\Temp\SAS Temporary Files\_TD7616_COB-MBA058_\Prc2\macros.sas7bcat,
+      Release Created=9.0401M3,Host Created=X64_8PRO
+
+NOTE: 2 records were written to the file _MAC.
+      The minimum record length was 12.
+      The maximum record length was 13.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+NOTE: %INCLUDE (level 1) file _MAC is file WORK.MACROS.VARIABLES.SOURCE.
+83387     +%macro _vars;
+83388     +%mend _vars;
+NOTE: %INCLUDE (level 1) ending.
+MPRINT(VAR_PROFILE):   filename _mac;
+NOTE: Fileref _MAC has been deassigned.
+MPRINT(EM_DIAGRAM):  ;
+
+83389      *------------------------------------------------------------*;
+MPRINT(EM_DIAGRAM):    *------------------------------------------------------------*;
+83390      * Filter: Creating Bar Chart Table;
+MPRINT(EM_DIAGRAM):   * Filter: Creating Bar Chart Table;
+83391      *------------------------------------------------------------*;
+MPRINT(EM_DIAGRAM):   *------------------------------------------------------------*;
+83392      filename cdist catalog 'SASHELP.EMUTIL.EM_CLASSDIST.SOURCE';
+MPRINT(EM_DIAGRAM):   filename cdist catalog 'SASHELP.EMUTIL.EM_CLASSDIST.SOURCE';
+83393      %inc cdist;
+NOTE: %INCLUDE (level 1) file CDIST is file SASHELP.EMUTIL.EM_CLASSDIST.SOURCE.
+83394     +%macro class_profile(DATA=, OUTPUT=_CLASS, VARS=, METADATA=, WHERE=, STAT=_STAT, FREQ=);
+83395     +   %if %INDEX(&EM_DEBUG, LOG SOURCE) %then %do;
+83396     +       %put *** Statistics for Class variables ***;
+83397     +       %put >>> DATA= &data  OUTPUT= &output;
+83398     +       %put >>> VAR= &vars;
+83399     +       %put >>> WHERE=  &where;
+83400     +       %put >>> FREQ=  &freq;
+83401     +   %end;
+83402     +
+83403     +      /* Process metadata data set */
+83404     +   filename _mac catalog 'WORK.MACROS.VARIABLES.SOURCE';
+83405     +   %if %sysfunc(exist(&metadata))>0 and ("&metadata" ne "") %then %do;
+83406     +       %let FREQ=;
+83407     +       %let _nobs=0;
+83408     +       data _null;
+83409     +          set &metadata(where=(LEVEL ne 'INTERVAL' and ROLE ne 'FREQ')) end=eof;
+83410     +          if eof then call symput('_nobs', put(_N_, best.));
+83411     +       run;
+83412     +       %if "&_nobs" ne "0" %then %do;
+83413     +           data _null_;
+83414     +              file _mac;
+83415     +              length _VARS $80; retain _vars;
+83416     +              if _n_ =1 then put '%macro _vars;';
+83417     +              set &metadata end=eof;
+83418     +              where LEVEL ne 'INTERVAL' or ROLE='FREQ';
+83419     +              if ROLE='FREQ' then call symput('FREQ', NAME);
+83420     +              else do;
+83421     +                 if length(strip(_vars)) + length(strip(NAME)) + 1 <80  then
+83422     +                    _vars = strip(_vars)!! ' ' !!strip(NAME);
+83423     +                 else do;
+83424     +                    put _Vars;
+83425     +                    _vars = strip(NAME);
+83426     +                 end;
+83427     +              end;
+83428     +              if eof then do;
+83429     +                 put _Vars;
+83430     +                 put '%mend _vars;';
+83431     +              end;
+83432     +           run;
+83433     +       %end;
+83434     +       %else %do;
+83435     +           data _null_;
+83436     +              file _mac;
+83437     +              put '%macro _vars;';
+83438     +              put '%mend _vars;';
+83439     +           run;
+83440     +       %end;
+83441     +   %end;
+83442     +   %else %do;
+83443     +       data _null_;
+83444     +          file _mac;
+83445     +          put '%macro _vars;';
+83446     +          put '%mend _vars;';
+83447     +       run;
+83448     +   %end;
+83449     +   %inc _mac;
+83450     +   filename _mac;
+83451     +
+83452     +   %if "&VARS" eq "" and %_vars eq %then %goto doend;
+83453     +
+83454     +   /* Check if FREQ variable is in the data set */
+83455     +   %if &freq ne %then %do;
+83456     +       data _null_;
+83457     +          dsid = open("&data");
+83458     +          if dsid>0 then do;
+83459     +               if varnum(dsid, "&FREQ")<1 then
+83460     +                  call symput('FREQ', '');
+83461     +               dsid = close(dsid);
+83462     +          end;
+83463     +       run;
+83464     +   %end;
+83465     +
+83466     +   proc dmdb data=&DATA  nonorm classout=_tempclass(rename=(NAME=VARIABLE LEVEL=VALUE FREQUENCY=COUNT FREQPERCENT=PERCENT));
+83467     +      class %_Vars &vars;
+83468     +      %if &FREQ ne %then %do;
+83469     +          freq &FREQ;
+83470     +      %end;
+83471     +      %if %bquote(&WHERE) ne %then %do;
+83472     +            where &WHERE;
+83473     +      %end;
+83474     +   run;
+83475     +   proc sort data=_tempclass;
+83476     +      by VARIABLE;
+83477     +   run;
+83478     +   data &output;
+83479     +      label VARIABLE     = "%sysfunc(sasmsg(sashelp.dmine, rpt_variable_vlabel, NOQUOTE))";
+83480     +      label VALUE        = "%sysfunc(sasmsg(sashelp.dmine, rpt_value_vlabel,    NOQUOTE))";
+83481     +      label COUNT        = "%sysfunc(sasmsg(sashelp.dmine, rpt_count_vlabel,    NOQUOTE))";
+83482     +      label PERCENT      = "%sysfunc(sasmsg(sashelp.dmine, rpt_percent_vlabel,  NOQUOTE))";
+83483     +      set _tempclass;
+83484     +      format COUNT;
+83485     +      keep VARIABLE COUNT PERCENT VALUE;
+83486     +   run;
+83487     +   proc means data=&output noprint;
+83488     +      class VARIABLE;
+83489     +      var COUNT;
+83490     +      output out=&STAT N=NUMCAT;
+83491     +   run;
+83492     +   data &STAT;
+83493     +      set &STAT;
+83494     +      where _TYPE_=1;
+83495     +      KEEP VARIABLE NUMCAT;
+83496     +      label NUMCAT   = "%sysfunc(sasmsg(sashelp.dmine, rpt_numcat_vlabel,   NOQUOTE))";
+83497     +      format NUMCAT 8.;
+83498     +   run;
+83499     +   proc datasets lib=work nolist;
+83500     +      delete _tempclass;
+83501     +   run;
+83502     +   quit;
+83503     +
+83504     +   %doend:
+83505     +%mend class_profile;
+83506     +
+NOTE: %INCLUDE (level 1) ending.
+83507      filename cdist;
+MPRINT(EM_DIAGRAM):   filename cdist;
+NOTE: Fileref CDIST has been deassigned.
+83508      %let em_nodeid = Filter;
+83509      %class_profile(DATA=EMWS1.Part_TRAIN, OUTPUT=WORK._BARDATA, METADATA=WORK.FilterDMDBC, STAT=_STAT);
+MPRINT(CLASS_PROFILE):   filename _mac catalog 'WORK.MACROS.VARIABLES.SOURCE';
+MPRINT(CLASS_PROFILE):   data _null;
+MPRINT(CLASS_PROFILE):   set WORK.FilterDMDBC(where=(LEVEL ne 'INTERVAL' and ROLE ne 'FREQ')) end=eof;
+MPRINT(CLASS_PROFILE):   if eof then call symput('_nobs', put(_N_, best.));
+MPRINT(CLASS_PROFILE):   run;
+
+NOTE: There were 0 observations read from the data set WORK.FILTERDMDBC.
+      WHERE (LEVEL not = 'INTERVAL') and (ROLE not = 'FREQ');
+NOTE: The data set WORK._NULL has 0 observations and 26 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+MPRINT(CLASS_PROFILE):   data _null_;
+MPRINT(CLASS_PROFILE):   file _mac;
+MPRINT(CLASS_PROFILE):   put '%macro _vars;';
+MPRINT(CLASS_PROFILE):   put '%mend _vars;';
+MPRINT(CLASS_PROFILE):   run;
+
+NOTE: The file _MAC is:
+      Catalog Name=WORK.MACROS.VARIABLES.SOURCE,
+      Catalog Page Size=4096,
+      Number of Catalog Pages=5,
+      Created=Mon, Nov 19, 2018 11:47:33 PM,
+      Last Modified=Mon, Nov 19, 2018 11:47:43 PM,
+      Filename=C:\Users\jmmorr01\AppData\Local\Temp\SAS Temporary Files\_TD7616_COB-MBA058_\Prc2\macros.sas7bcat,
+      Release Created=9.0401M3,Host Created=X64_8PRO
+
+NOTE: 2 records were written to the file _MAC.
+      The minimum record length was 12.
+      The maximum record length was 13.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+NOTE: %INCLUDE (level 1) file _MAC is file WORK.MACROS.VARIABLES.SOURCE.
+83510     +%macro _vars;
+83511     +%mend _vars;
+NOTE: %INCLUDE (level 1) ending.
+MPRINT(CLASS_PROFILE):   filename _mac;
+NOTE: Fileref _MAC has been deassigned.
+MPRINT(EM_DIAGRAM):  ;
+
+83512      %class_profile(DATA=WORK.DATA_FILTERED, OUTPUT=WORK._BARDATA, METADATA=WORK.FilterDMDBC, STAT=_STAT);
+MPRINT(EM_DIAGRAM):   
+MPRINT(CLASS_PROFILE):   filename _mac catalog 'WORK.MACROS.VARIABLES.SOURCE';
+MPRINT(CLASS_PROFILE):   data _null;
+MPRINT(CLASS_PROFILE):   set WORK.FilterDMDBC(where=(LEVEL ne 'INTERVAL' and ROLE ne 'FREQ')) end=eof;
+MPRINT(CLASS_PROFILE):   if eof then call symput('_nobs', put(_N_, best.));
+MPRINT(CLASS_PROFILE):   run;
+
+NOTE: There were 0 observations read from the data set WORK.FILTERDMDBC.
+      WHERE (LEVEL not = 'INTERVAL') and (ROLE not = 'FREQ');
+NOTE: The data set WORK._NULL has 0 observations and 26 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+MPRINT(CLASS_PROFILE):   data _null_;
+MPRINT(CLASS_PROFILE):   file _mac;
+MPRINT(CLASS_PROFILE):   put '%macro _vars;';
+MPRINT(CLASS_PROFILE):   put '%mend _vars;';
+MPRINT(CLASS_PROFILE):   run;
+
+NOTE: The file _MAC is:
+      Catalog Name=WORK.MACROS.VARIABLES.SOURCE,
+      Catalog Page Size=4096,
+      Number of Catalog Pages=5,
+      Created=Mon, Nov 19, 2018 11:47:33 PM,
+      Last Modified=Mon, Nov 19, 2018 11:47:43 PM,
+      Filename=C:\Users\jmmorr01\AppData\Local\Temp\SAS Temporary Files\_TD7616_COB-MBA058_\Prc2\macros.sas7bcat,
+      Release Created=9.0401M3,Host Created=X64_8PRO
+
+NOTE: 2 records were written to the file _MAC.
+      The minimum record length was 12.
+      The maximum record length was 13.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: %INCLUDE (level 1) file _MAC is file WORK.MACROS.VARIABLES.SOURCE.
+83513     +%macro _vars;
+83514     +%mend _vars;
+NOTE: %INCLUDE (level 1) ending.
+MPRINT(CLASS_PROFILE):   filename _mac;
+NOTE: Fileref _MAC has been deassigned.
+MPRINT(EM_DIAGRAM):  ;
+
+83515      *------------------------------------------------------------*;
+MPRINT(EM_DIAGRAM):    *------------------------------------------------------------*;
+83516      * Filter: Computing metadata for TRAIN data;
+MPRINT(EM_DIAGRAM):   * Filter: Computing metadata for TRAIN data;
+83517      *------------------------------------------------------------*;
+MPRINT(EM_DIAGRAM):   *------------------------------------------------------------*;
+
+NOTE: View EMWS1.FILTER_TRAIN.VIEW used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.03 seconds
+      
+MPRINT(EM_DIAGRAM):    *------------------------------------------------------------*;
+MPRINT(EM_DIAGRAM):   * &nodeid: Computing Metadata for TRAIN data;
+MPRINT(EM_DIAGRAM):   *------------------------------------------------------------*;
+MPRINT(EM_DIAGRAM):   filename _delta "J:\CIS-445-Project-4-master\CIS-445-Project-4-master\Project_4\Workspaces\EMWS1\Filter\CDELTA_TRAIN.sas";
+MPRINT(EMADVISECOLUMNS):   proc display c=sashelp.emmeta.advisecolumns.scl;
+MPRINT(EMADVISECOLUMNS):   run;
+MPRINT(EMADVISECOLUMNS):    options validvarname=any;
+MPRINT(EMADVISECOLUMNS):   proc contents data=EMWS1.Filter_TRAIN out=_tempAdvisor noprint;
+MPRINT(EMADVISECOLUMNS):   run;
+MPRINT(EMADVISECOLUMNS):   options validvarname=V7;
+MPRINT(EMADVISECOLUMNS):    data _null_;
+MPRINT(EMADVISECOLUMNS):   dsid = open('EMWS1.Filter_TRAIN');
+MPRINT(EMADVISECOLUMNS):   call symput('_dsidTable', strip(put(dsid, best.)));
+MPRINT(EMADVISECOLUMNS):   if dsid then do;
+MPRINT(EMADVISECOLUMNS):   call symput('_engineTable', attrc(dsid, 'ENGINE'));
+MPRINT(EMADVISECOLUMNS):   dsid = close(dsid);
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   run;
+MPRINT(EMADVISECOLUMNS):    proc contents data=EMWS1.Filter_TRAIN out=WORK.M2LQT_6L noprint;
+MPRINT(EMADVISECOLUMNS):   run;
+MPRINT(EMADVISECOLUMNS):    data WORK.M2LQT_6L;
+MPRINT(EMADVISECOLUMNS):   length NAME $ 64 TYPE $ 1 LABEL $ 200 FORMAT $ 36 INFORMAT $36 INDEX $ 1 INDEXTYPE $ 9;
+MPRINT(EMADVISECOLUMNS):   label NAME =;
+MPRINT(EMADVISECOLUMNS):   set WORK.M2LQT_6L(keep=name type length label format formatl formatd informat informl informd idxusage rename=(type=itype));
+MPRINT(EMADVISECOLUMNS):   if itype = 1 then type = 'N';
+MPRINT(EMADVISECOLUMNS):   else type = 'C';
+MPRINT(EMADVISECOLUMNS):   if formatl > 0 then do;
+MPRINT(EMADVISECOLUMNS):   if format ne '' then do;
+MPRINT(EMADVISECOLUMNS):   if type='N' then format = strip(format)!!strip(put(formatl, best12.))!!'.'!!strip(put(formatd, best12.));
+MPRINT(EMADVISECOLUMNS):   else format = strip(format)!!strip(put(formatl, best12.))!!'.';
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   else format = strip(put(formatl, best12.))!!'.'!!strip(put(formatd, best12.));
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   else if format ne '' then format = strip(format)!!'.';
+MPRINT(EMADVISECOLUMNS):   if informl > 0 then do;
+MPRINT(EMADVISECOLUMNS):   if informat ne ' ' then do;
+MPRINT(EMADVISECOLUMNS):   if type='N' then informat = strip(informat)!!strip(put(informl, best12.))!!'.'!!strip(put(informd, best12.));
+MPRINT(EMADVISECOLUMNS):   else informat = strip(informat)!!strip(put(informl, best12.))!!'.';
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   else informat = strip(put(informl, best12.))!!'.'!!strip(put(informd, best12.));
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   else if informat ne '' then informat = strip(informat)!!'.';
+MPRINT(EMADVISECOLUMNS):   if idxusage = 'NONE' then index ="N";
+MPRINT(EMADVISECOLUMNS):   else index = "Y";
+MPRINT(EMADVISECOLUMNS):   indextype = idxusage;
+MPRINT(EMADVISECOLUMNS):   drop idxusage itype formatl formatd informl informd;
+MPRINT(EMADVISECOLUMNS):   run;
+MPRINT(EMADVISECOLUMNS):    data WORK.M2LQT_6L;
+MPRINT(EMADVISECOLUMNS):   length UNAME $64;
+MPRINT(EMADVISECOLUMNS):   set WORK.M2LQT_6L;
+MPRINT(EMADVISECOLUMNS):   UNAME = upcase(NAME);
+MPRINT(EMADVISECOLUMNS):   run;
+MPRINT(EMADVISECOLUMNS):    proc sort data=WORK.M0NX6T23 NOTHREADS;
+MPRINT(EMADVISECOLUMNS):   by UNAME;
+MPRINT(EMADVISECOLUMNS):   run;
+MPRINT(EMADVISECOLUMNS):    data WORK.M0NX6T23;
+MPRINT(EMADVISECOLUMNS):   drop UNAME;
+MPRINT(EMADVISECOLUMNS):   set WORK.M0NX6T23;
+MPRINT(EMADVISECOLUMNS):   run;
+MPRINT(EMADVISECOLUMNS):    data WORK.M3FHVSPS(keep=NAME ATTR);
+MPRINT(EMADVISECOLUMNS):   length ATTR $ 20;
+MPRINT(EMADVISECOLUMNS):   set WORK.M0NX6T23;
+MPRINT(EMADVISECOLUMNS):   if level ne "INTERVAL" then do;
+MPRINT(EMADVISECOLUMNS):   if order = ' ' then do;
+MPRINT(EMADVISECOLUMNS):   attr = 'ORDER';
+MPRINT(EMADVISECOLUMNS):   output;
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   if format ne ' ' and formattype = ' ' then do;
+MPRINT(EMADVISECOLUMNS):   attr = 'FORMATTYPE';
+MPRINT(EMADVISECOLUMNS):   output;
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   if role = ' ' then do;
+MPRINT(EMADVISECOLUMNS):   attr = 'ROLE';
+MPRINT(EMADVISECOLUMNS):   output;
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   if level = ' ' then do;
+MPRINT(EMADVISECOLUMNS):   attr = 'LEVEL';
+MPRINT(EMADVISECOLUMNS):   output;
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   if type = ' ' then do;
+MPRINT(EMADVISECOLUMNS):   attr = 'TYPE';
+MPRINT(EMADVISECOLUMNS):   output;
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   if index = ' ' then do;
+MPRINT(EMADVISECOLUMNS):   attr = 'INDEX';
+MPRINT(EMADVISECOLUMNS):   output;
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   if report = ' ' then do;
+MPRINT(EMADVISECOLUMNS):   attr = 'REPORT';
+MPRINT(EMADVISECOLUMNS):   output;
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   run;
+MPRINT(EMADVISECOLUMNS):   proc sort NOTHREADS;
+MPRINT(EMADVISECOLUMNS):   by attr;
+MPRINT(EMADVISECOLUMNS):   run;
+MPRINT(EMADVISECOLUMNS):    data WORK.M0NX6T23;
+MPRINT(EMADVISECOLUMNS):   length NAME $64 ROLE $ 32 LEVEL $ 10 ORDER $ 8 CREATOR $32 FORMATTYPE $ 10 FAMILY $ 10 LOWERLIMIT 8 UPPERLIMIT 8 REPORT $1 DISTRIBUTION $ 20 COMMENT $64;
+MPRINT(EMADVISECOLUMNS):   length levelAssigned 8 roleAssigned 8 PRICE 8;
+MPRINT(EMADVISECOLUMNS):   set WORK.M0NX6T23;
+MPRINT(EMADVISECOLUMNS):   if formattype = ' ' then do;
+MPRINT(EMADVISECOLUMNS):   if format ne ' ' then do;
+MPRINT(EMADVISECOLUMNS):   if type = 'N' then do;
+MPRINT(EMADVISECOLUMNS):   pos = indexc(format,'.1234567890');
+MPRINT(EMADVISECOLUMNS):   if pos > 1 then tempfmt = substr(format,1, pos-1);
+MPRINT(EMADVISECOLUMNS):   else tempfmt = ' ';
+MPRINT(EMADVISECOLUMNS):   flen = length(tempfmt);
+MPRINT(EMADVISECOLUMNS):   select;
+MPRINT(EMADVISECOLUMNS):   when(tempfmt in ("DATE" "DAY" "DDMMYY" "DOWNAME" "JULDAY" "JULIAN" "MMDDYY" "MMDDYYD" "MMDDYYC" "MMDDYYN" "MMDDYYP" "MMDDYYS" "MONNAME" "MONTH" "MONYY" "NENGO" "QTR" "QTRR" "WEEKDATE" "WEEKDATX" "WEEKDAY" "WORDDATE" "WORDDATX" 
+"YEAR" "YYMMDD" "YYMON" "YYMMDDC" "YYMMDDD" "YYMMDDN" "YYMMDDP" "YYMMDDS" "EURDFDE" "NJDATE" "NLDATE" "EURDFDD" "EURDFDWN" "EURDFMN" "EURDFMY" "EURDFWK" "EURDFWKX" "EURDFWDX" "EURDFDN" "EURDFDE" )) formattype = 'DATE';
+MPRINT(EMADVISECOLUMNS):   when(tempfmt in ("DATETIME" "EURDFDT" "TOD" )) formattype = "DATETIME";
+MPRINT(EMADVISECOLUMNS):   when(tempfmt in ("HHMM" "HOUR" "MMSS" "TIME" "TIMEAMPM" )) formattype = "TIME";
+MPRINT(EMADVISECOLUMNS):   when(tempfmt in ("COMMA" "COMMAX" "DOLLAR" "DOLLARX" "E" "FRACT" "NEGPAREN" "PERCENT")) formattype="QUANTITY";
+MPRINT(EMADVISECOLUMNS):   when(tempfmt in ("BINARY" "HEX" "IB" "OCTAL" "PD" "PIB" "PK" "RB" "SSN" "Z" "ZD")) formattype = "CODING";
+MPRINT(EMADVISECOLUMNS):   otherwise do;
+MPRINT(EMADVISECOLUMNS):   formattype = "USER";
+MPRINT(EMADVISECOLUMNS):   if compress(tempfmt, '0123456789.', '') = '' then formattype='NUM';
+MPRINT(EMADVISECOLUMNS):   else if substr(tempfmt, 1, 6)='NLDATE' then formattype = "DATE";
+MPRINT(EMADVISECOLUMNS):   else if substr(tempfmt, 1, 6)='NLDATM' then formattype = "DATETIME";
+MPRINT(EMADVISECOLUMNS):   else if substr(tempfmt, 1, 4)='NLTIM' then formattype = "TIME";
+MPRINT(EMADVISECOLUMNS):   else if flen >= 4 then do;
+MPRINT(EMADVISECOLUMNS):   str = substr(tempfmt,1,4);
+MPRINT(EMADVISECOLUMNS):   if str in ("MMYY" "YYMM" "YYQR") then formattype ="DATE";
+MPRINT(EMADVISECOLUMNS):   else if str = "S370" then formattype = "CODING";
+MPRINT(EMADVISECOLUMNS):   else if str = "BEST" then formattype = "NUM";
+MPRINT(EMADVISECOLUMNS):   drop str;
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   else if flen >=3 and substr(tempfmt,1,3) = "YYQ" then formatType = "DATE";
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   drop flen tempfmt pos;
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   else do;
+MPRINT(EMADVISECOLUMNS):   formatType = "CATEGORY";
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   if formatType = "NUM" then do;
+MPRINT(EMADVISECOLUMNS):   if index = "Y" then formatType = "DISCRETE";
+MPRINT(EMADVISECOLUMNS):   else formatType = "QUANTITY";
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   if level = ' ' then do;
+MPRINT(EMADVISECOLUMNS):   if formatType in ("CATEGORY", "CODING", "ID") or type = "C" then level = "NOMINAL";
+MPRINT(EMADVISECOLUMNS):   else level = "INTERVAL";
+MPRINT(EMADVISECOLUMNS):   levelAssigned = 1;
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   else level = upcase(level);
+MPRINT(EMADVISECOLUMNS):   if role = ' ' then do;
+MPRINT(EMADVISECOLUMNS):   length name_prefix $8 _uname $64;
+MPRINT(EMADVISECOLUMNS):   drop name_prefix _uname _freqflag;
+MPRINT(EMADVISECOLUMNS):   retain _freqflag;
+MPRINT(EMADVISECOLUMNS):   if LENGTH> 80 then ROLE = 'TEXT';
+MPRINT(EMADVISECOLUMNS):   _uname = upcase(NAME);
+MPRINT(EMADVISECOLUMNS):   select(_uname);
+MPRINT(EMADVISECOLUMNS):   when('_PARTIND_') do;
+MPRINT(EMADVISECOLUMNS):   ROLE = 'ID';
+MPRINT(EMADVISECOLUMNS):   LEVEL = 'NOMINAL';
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   when('_WARN_') ROLE = 'ASSESS';
+MPRINT(EMADVISECOLUMNS):   when('EM_SEGMENT') do;
+MPRINT(EMADVISECOLUMNS):   ROLE = 'SEGMENT';
+MPRINT(EMADVISECOLUMNS):   LEVEL = 'NOMINAL';
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   when('_NODE_') do;
+MPRINT(EMADVISECOLUMNS):   ROLE = 'SEGMENT';
+MPRINT(EMADVISECOLUMNS):   LEVEL = 'NOMINAL';
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   when('EM_CLASSTARGET') ROLE = 'ASSESS';
+MPRINT(EMADVISECOLUMNS):   when('EM_VALUETARGET') ROLE = 'ASSESS';
+MPRINT(EMADVISECOLUMNS):   when('EM_PREDICTION') ROLE = 'PREDICT';
+MPRINT(EMADVISECOLUMNS):   when('EM_PROBABILITY') ROLE = 'PREDICT';
+MPRINT(EMADVISECOLUMNS):   when('EM_EVENTPROBABILITY') ROLE = 'PREDICT';
+MPRINT(EMADVISECOLUMNS):   when('EM_CLASSIFICATION') ROLE = 'CLASSIFICATION';
+MPRINT(EMADVISECOLUMNS):   when('EM_DECISION') ROLE = 'DECISION';
+MPRINT(EMADVISECOLUMNS):   when('EM_PROFIT') ROLE = 'ASSESS';
+MPRINT(EMADVISECOLUMNS):   when('EM_LOSS') ROLE = 'ASSESS';
+MPRINT(EMADVISECOLUMNS):   when('EM_ROI') ROLE = 'ASSESS';
+MPRINT(EMADVISECOLUMNS):   when('URI') ROLE = 'URL';
+MPRINT(EMADVISECOLUMNS):   when('FILTERED') ROLE = 'TEXTLOC';
+MPRINT(EMADVISECOLUMNS):   otherwise do;
+MPRINT(EMADVISECOLUMNS):   if upcase(NAME) =: 'ZIP' then do;
+MPRINT(EMADVISECOLUMNS):   ROLE = 'REJECTED';
+MPRINT(EMADVISECOLUMNS):   LEVEL = 'NOMINAL';
+MPRINT(EMADVISECOLUMNS):   COMMENT = 'Rejected by: Exceed the maximum class level of %s';
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   else if upcase(NAME) in('FREQ', 'FREQUENCY') then do;
+MPRINT(EMADVISECOLUMNS):   ROLE = 'FREQ';
+MPRINT(EMADVISECOLUMNS):   if TYPE = 'C' then ROLE = 'INPUT';
+MPRINT(EMADVISECOLUMNS):   else if _freqflag =1 then ROLE='REJECTED';
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   else do;
+MPRINT(EMADVISECOLUMNS):   name_prefix = scan(_uname, 1, '_');
+MPRINT(EMADVISECOLUMNS):   if scan(_uname, 2, '_') = '' then name_prefix='';
+MPRINT(EMADVISECOLUMNS):   if name_prefix in('F', 'I', 'U') then do;
+MPRINT(EMADVISECOLUMNS):   ROLE = 'CLASSIFICATION';
+MPRINT(EMADVISECOLUMNS):   LEVEL = 'NOMINAL';
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   else if name_prefix in('Q') then ROLE = 'ASSESS';
+MPRINT(EMADVISECOLUMNS):   else if name_prefix in('P', 'V') then ROLE = 'PREDICT';
+MPRINT(EMADVISECOLUMNS):   else if name_prefix in('R', 'RS', 'RT', 'RD', 'RDS', 'RDT', 'RA', 'RAS', 'RAT') then ROLE = 'RESIDUAL';
+MPRINT(EMADVISECOLUMNS):   else if name_prefix ='D' then do;
+MPRINT(EMADVISECOLUMNS):   ROLE = 'DECISION';
+MPRINT(EMADVISECOLUMNS):   LEVEL = 'NOMINAL';
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   else if name_prefix ='B' then do;
+MPRINT(EMADVISECOLUMNS):   ROLE = 'SEGMENT';
+MPRINT(EMADVISECOLUMNS):   LEVEL = 'NOMINAL';
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   else if name_prefix in('EP', 'BP', 'CP', 'EL', 'CL', 'BL', 'W', 'ROI', 'IC') then ROLE = 'ASSESS';
+MPRINT(EMADVISECOLUMNS):   else do;
+MPRINT(EMADVISECOLUMNS):   array _ROLE_ (19) $32 _TEMPORARY_ ('ASSESS','CLASSIFICATION','CENSOR', 'COST', 'CROSSID', 'DECISION', 'ID','INPUT', 'LABEL', 'MISSING','PREDICT','REFERRER','REJECTED', 'RESIDUAL','SEGMENT', 'SEQUENCE','TARGET', 'TEXT', 'TIMEID');
+MPRINT(EMADVISECOLUMNS):   drop _found_ i;
+MPRINT(EMADVISECOLUMNS):   _found_=0;
+MPRINT(EMADVISECOLUMNS):   do i=1 to 19 until(_found_=1);
+MPRINT(EMADVISECOLUMNS):   if index(_uname, trim(_ROLE_{i}))=1 then do;
+MPRINT(EMADVISECOLUMNS):   ROLE=_ROLE_{i};
+MPRINT(EMADVISECOLUMNS):   if ROLE = 'ID' then LEVEL = 'NOMINAL';
+MPRINT(EMADVISECOLUMNS):   else if ROLE = 'SEGMENT' then LEVEL = 'NOMINAL';
+MPRINT(EMADVISECOLUMNS):   else if ROLE = 'TIMEID' and TYPE='N' then LEVEL = 'INTERVAL';
+MPRINT(EMADVISECOLUMNS):   _found_=1;
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   if length(_uname)>2 then do;
+MPRINT(EMADVISECOLUMNS):   if substr(reverse(trim(_uname)), 1, 3) = 'DI_' then do;
+MPRINT(EMADVISECOLUMNS):   ROLE = 'ID';
+MPRINT(EMADVISECOLUMNS):   LEVEL = 'NOMINAL';
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   if ROLE='FREQ' then _freqflag=1;
+MPRINT(EMADVISECOLUMNS):   else if ROLE = 'CLASSIFICATION' then LEVEL = 'NOMINAL';
+MPRINT(EMADVISECOLUMNS):   if symexist('RATEMKG_ROLE') then do;
+MPRINT(EMADVISECOLUMNS):   if upcase(symget('RATEMKG_ROLE')) in('Y', 'YES') then do;
+MPRINT(EMADVISECOLUMNS):   if _uname =: 'POLICY' then ROLE = 'POLICYID';
+MPRINT(EMADVISECOLUMNS):   else if _uname in ('PARTITION', '_PARTIND_') then ROLE = 'PARTITION';
+MPRINT(EMADVISECOLUMNS):   else if type = 'N' then do;
+MPRINT(EMADVISECOLUMNS):   if _uname = 'EXPOSURE' then ROLE = 'EXPOSURE';
+MPRINT(EMADVISECOLUMNS):   else if _uname = 'YEAR' then ROLE = 'YEAR';
+MPRINT(EMADVISECOLUMNS):   else if _uname = 'WEIGHT' then ROLE = 'WEIGHT';
+MPRINT(EMADVISECOLUMNS):   else if _uname = 'OFFSET' then ROLE = 'OFFSET';
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   if role = ' ' then do;
+MPRINT(EMADVISECOLUMNS):   if formattype in('DATE', 'DATETIME', 'TIME') then role = 'TIMEID';
+MPRINT(EMADVISECOLUMNS):   else role = 'INPUT';
+MPRINT(EMADVISECOLUMNS):   roleAssigned = 1;
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   else role = upcase(role);
+MPRINT(EMADVISECOLUMNS):   if REPORT = '' then REPORT = 'N';
+MPRINT(EMADVISECOLUMNS):   if symexist('dmwb_product') then do;
+MPRINT(EMADVISECOLUMNS):   if upcase(symget('dmwb_product')) = 'FACTORYMINER_DATASOURCE' then do;
+MPRINT(EMADVISECOLUMNS):   if ROLE ^in('INPUT', 'TARGET', 'REJECTED', 'SEGMENT', 'FREQ', 'ID', 'KEY') then ROLE='REJECTED';
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   end;
+MPRINT(EMADVISECOLUMNS):   run;
+MPRINT(EMADVISECOLUMNS):    data WORK.M0NX6T23;
+MPRINT(EMADVISECOLUMNS):   set WORK.M0NX6T23;
+MPRINT(EMADVISECOLUMNS):   label NAME = "Variable Name" TYPE = "Type" ROLE = "Role" LEVEL= "Measurement Level" ORDER= "Order" CREATOR= "Creator" FORMATTYPE= "Format Type" FAMILY= "Family" DISTRIBUTION= "Distribution" PRICE= "Price" LOWERLIMIT= "Lower 
+limit" UPPERLIMIT= "Upper Limit" REPORT= "Report" COMMENT= "Comment" INDEX= "Index" INDEXTYPE= "IndexType" LABEL= "Label" LENGTH= "Length";
+MPRINT(EMADVISECOLUMNS):   drop levelAssigned roleAssigned;
+MPRINT(EMADVISECOLUMNS):   run;
+MPRINT(EMADVISECOLUMNS):   
+MPRINT(EM_DIAGRAM):  ;
+MPRINT(EM_DIAGRAM):   proc sort data=WORK.COLUMNMETA;
+MPRINT(EM_DIAGRAM):   by NAME;
+MPRINT(EM_DIAGRAM):   run;
+MPRINT(EM_DIAGRAM):   *------------------------------------------------------------*;
+MPRINT(EM_DIAGRAM):   * &nodeid: Merge incoming metadata;
+MPRINT(EM_DIAGRAM):   *------------------------------------------------------------*;
+MPRINT(EM_DIAGRAM):   proc contents data=EMWS1.Part_TRAIN noprint out=_temp2(keep=NAME);
+MPRINT(EM_DIAGRAM):   run;
+MPRINT(EM_DIAGRAM):   proc sort data=_temp2;
+MPRINT(EM_DIAGRAM):   by NAME;
+MPRINT(EM_DIAGRAM):   run;
+MPRINT(EM_DIAGRAM):   proc sort data=EMWS1.Part_CMeta_TRAIN out=_temp;
+MPRINT(EM_DIAGRAM):   by NAME;
+MPRINT(EM_DIAGRAM):   run;
+MPRINT(EM_DIAGRAM):   data EMWS1.Filter_CMeta_TRAIN;
+MPRINT(EM_DIAGRAM):   merge WORK.COLUMNMETA(in=_a) _temp2(in=_b) _temp(drop=FORMAT INFORMAT LENGTH INDEX INDEXTYPE in=_c) end=_eof_;
+MPRINT(EM_DIAGRAM):   by NAME;
+MPRINT(EM_DIAGRAM):   if (^_a and _b) or (^_c and _a and _b) then delete;
+MPRINT(EM_DIAGRAM):   if ^_b then CREATOR = "Filter";
+MPRINT(EM_DIAGRAM):   *------------------------------------------------------------*;
+MPRINT(EM_DIAGRAM):   * Filter: Apply Delta Code;
+MPRINT(EM_DIAGRAM):   *------------------------------------------------------------*;
+MPRINT(EM_DIAGRAM):   if NAME="M_FILTER" then do;
+MPRINT(EM_DIAGRAM):   role ="REJECTED";
+MPRINT(EM_DIAGRAM):   level = "BINARY";
+MPRINT(EM_DIAGRAM):   end;
+MPRINT(EM_DIAGRAM):   run;
+MPRINT(EM_DIAGRAM):   filename _delta;
+NOTE: View EMWS1.FILTER_TRAIN.VIEW used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+NOTE: View EMWS1.FILTER_VALIDATE.VIEW used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.03 seconds
+      
+MPRINT(EM_DIAGRAM):    proc printto;
+MPRINT(EM_DIAGRAM):   run;

@@ -1,0 +1,95 @@
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+Variable Summary
+
+            Measurement    Frequency
+Role           Level         Count
+
+INPUT        ORDINAL           8    
+REJECTED     BINARY            2    
+REJECTED     INTERVAL          7    
+REJECTED     NOMINAL           2    
+TARGET       INTERVAL          1    
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+Predicted and decision variables
+
+Type          Variable      Label
+
+TARGET       SalePrice      SalePrice           
+PREDICTED    P_SalePrice    Predicted: SalePrice
+RESIDUAL     R_SalePrice    Residual: SalePrice 
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+
+The DMREG Procedure
+
+                 Model Information
+
+Training Data Set             WORK.EM_DMREG.VIEW   
+DMDB Catalog                  WORK.REG_DMDB        
+Target Variable               SalePrice (SalePrice)
+Target Measurement Level      Interval             
+Error                         Normal               
+Link Function                 Identity             
+Number of Model Parameters    14                   
+Number of Observations        193                  
+
+
+                             Analysis of Variance
+ 
+                                   Sum of
+Source                 DF         Squares     Mean Square    F Value    Pr > F
+
+Model                  13     10251014625       788539587       4.99    <.0001
+Error                 179     28310560985       158159559                     
+Corrected Total       192     38561575609                                     
+
+
+              Model Fit Statistics
+
+R-Square        0.2658     Adj R-Sq        0.2125
+AIC          3657.1354     BIC          3661.3131
+SBC          3702.8131     C(p)           14.0000
+
+
+                   Type 3 Analysis of Effects
+ 
+                                      Sum of
+Effect                      DF       Squares    F Value    Pr > F
+
+GRP_Age                      3    1556658889       3.28    0.0222
+GRP_BasementType             2     617749895       1.95    0.1449
+GRP_Baths                    1    10143264.2       0.06    0.8004
+GRP_CentralAir               1     200594978       1.27    0.2616
+GRP_FirePlace                1     762095509       4.82    0.0294
+GRP_G_ConstructionType       1     510803120       3.23    0.0740
+GRP_GarageSize               1     881395196       5.57    0.0193
+GRP_TotalArea                3    2974342378       6.27    0.0005
+
+
+                  Analysis of Maximum Likelihood Estimates
+ 
+                                              Standard
+Parameter                   DF    Estimate       Error    t Value    Pr > |t|
+
+Intercept                    1     68329.8      2532.9      26.98      <.0001
+GRP_Age                2     1      5115.6      1732.5       2.95      0.0036
+GRP_Age                3     1     -1089.5      1682.9      -0.65      0.5182
+GRP_Age                4     1     -1092.2      1681.7      -0.65      0.5169
+GRP_BasementType       2     1      3710.2      2223.6       1.67      0.0970
+GRP_BasementType       3     1      2435.4      3187.9       0.76      0.4459
+GRP_Baths              3     1      -275.9      1089.3      -0.25      0.8004
+GRP_CentralAir         2     1      1212.3      1076.5       1.13      0.2616
+GRP_FirePlace          2     1     -2939.1      1338.9      -2.20      0.0294
+GRP_G_ConstructionType 2     1     -2159.0      1201.4      -1.80      0.0740
+GRP_GarageSize         2     1     -3369.9      1427.5      -2.36      0.0193
+GRP_TotalArea          2     1     -1284.2      1826.6      -0.70      0.4829
+GRP_TotalArea          3     1     -3892.3      1602.6      -2.43      0.0161
+GRP_TotalArea          4     1     -1810.7      1617.3      -1.12      0.2644

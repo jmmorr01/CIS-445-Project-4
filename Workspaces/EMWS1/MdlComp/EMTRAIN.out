@@ -1,0 +1,94 @@
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+Variable Summary
+
+          Measurement    Frequency
+ Role        Level         Count
+
+TARGET     INTERVAL          1    
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+
+
+
+
+
+
+
+Fit Statistics
+Model Selection based on Valid: Average Squared Error (_VASE_)
+
+                                                       Valid:          Train:
+                                                       Average         Average            Train:
+Selected    Model                                      Squared         Squared      Misclassification
+ Model      Node       Model Description                Error           Error              Rate
+
+   Y        Neural     Neural Network, filter       283818329.24    156023325.91            .        
+            Reg        Regression, filter           289953541.39    146686844.48            .        
+            Neural2    Neural Network, No filter    290120505.93    212653051.49            .        
+            Reg2       Regression, No filter        296506615.97    214904582.29            .        
+            MBR2       MBR, No filter               297233201.32    224414002.90            .        
+            MBR        MBR, filter                  314006227.11    159222957.65            .        
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+
+
+
+
+
+
+
+Fit Statistics Table
+Target: SalePrice
+
+Data Role=Train
+
+Statistics                                                   Neural               Reg           Neural2              Reg2              MBR2               MBR
+
+Train: Akaike's Information Criterion                       3733.04           3657.14           4338.19           4230.48           4209.92           3658.96
+Train: Average Squared Error                           156023325.91      146686844.48      212653051.49      214904582.29      224414002.90      159222957.65
+Train: Average Error Function                          156023325.91      146686844.48      212653051.49      214904582.29      224414002.90      159222957.65
+Selection Criterion: Valid: Average Squared Error      283818329.24      289953541.39      290120505.93      296506615.97      297233201.32      314006227.11
+Train: Degrees of Freedom for Error                          147.00            179.00            139.00            194.00            209.00            186.00
+Train: Model Degrees of Freedom                               46.00             14.00             79.00             24.00              9.00              7.00
+Train: Total Degrees of Freedom                              193.00            193.00            218.00            218.00            218.00            193.00
+Train: Divisor for ASE                                       193.00            193.00            218.00            218.00            218.00            193.00
+Train: Error Function                                30112501900.55    28310560984.87    46358365224.34    46849198939.07    48922252632.33    30730030826.75
+Train: Final Prediction Error                          253670577.50      169632272.67      454373786.27      268076850.07      243741524.68      171207481.35
+Train: Maximum Absolute Error                              40905.78          35187.36          78798.34          74876.44          81597.00          45213.10
+Train: Misclassification Rate                                   .                 .                 .                 .                 .                 .  
+Train: Mean Squared Error                              204846951.70      158159558.57      333513418.88      241490716.18      234077763.79      165215219.50
+Train: Sum of Frequencies                                    193.00            193.00            218.00            218.00            218.00            193.00
+Train: Number of Estimated Weights                            46.00             14.00             79.00             24.00              9.00              7.00
+Train: Root Average Squared Error                          12490.93          12111.43          14582.63          14659.62          14980.45          12618.36
+Train: Root Final Prediction Error                         15927.04          13024.30          21316.05          16373.05          15612.22          13084.63
+Train: Root Mean Squared Error                             14312.48          12576.15          18262.35          15539.97          15299.60          12853.61
+Train: Schwarz's Bayesian Criterion                         3883.13           3702.81           4605.56           4311.71           4240.38           3681.80
+Train: Sum of Squared Errors                         30112501900.55    28310560984.87    46358365224.34    46849198939.07    48922252632.33    30730030826.75
+Train: Sum of Case Weights Times Freq                        193.00            193.00            218.00            218.00            218.00            193.00
+Train: Number of Wrong Classifications                          .                 .                 .                 .                 .                 .  
+
+
+Data Role=Valid
+
+Statistics                                        Neural               Reg           Neural2              Reg2              MBR2               MBR
+
+Valid: Average Squared Error                283818329.24      289953541.39      290120505.93      296506615.97      297233201.32      314006227.11
+Valid: Average Error Function               283818329.24      289953541.39      290120505.93      296506615.97      297233201.32      314006227.11
+Valid: Divisor for VASE                           145.00            145.00            145.00            145.00            145.00            145.00
+Valid: Error Function                     41153657739.08    42043263500.83    42067473360.21    42993459316.15    43098814191.19    45530902931.38
+Valid: Maximum Absolute Error                   64788.14          65251.65          63597.34          68183.70          65532.90          68502.40
+Valid: Misclassification Rate                        .                 .                 .                 .                 .                 .  
+Valid: Mean Squared Error                   283818329.24      289953541.39      290120505.93      296506615.97      297233201.32      314006227.11
+Valid: Sum of Frequencies                         145.00            145.00            145.00            145.00            145.00            145.00
+Valid: Root Average Squared Error               16846.91          17028.02          17032.92          17219.37          17240.45          17720.22
+Valid: Root Mean Squared Error                  16846.91          17028.02          17032.92          17219.37          17240.45          17720.22
+Valid: Sum of Squared Errors              41153657739.08    42043263500.83    42067473360.21    42993459316.15    43098814191.19    45530902931.38
+Valid: Sum of Case Weights Times Freq             145.00            145.00            145.00            145.00            145.00            145.00
+Valid: Number of Wrong Classifications               .                 .                 .                 .                 .                 .  

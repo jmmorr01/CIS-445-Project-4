@@ -1,0 +1,254 @@
+*------------------------------------------------------------*
+User:                jmmorr01
+Date:                November 19, 2018
+Time:                23:49:19
+*------------------------------------------------------------*
+* Training Output
+*------------------------------------------------------------*
+ 
+ 
+ 
+ 
+Variable Summary
+ 
+            Measurement    Frequency
+Role           Level         Count
+ 
+INPUT        ORDINAL           8
+REJECTED     BINARY            2
+REJECTED     INTERVAL          7
+REJECTED     NOMINAL           2
+TARGET       INTERVAL          1
+ 
+ 
+ 
+ 
+Predicted and decision variables
+ 
+Type          Variable      Label
+ 
+TARGET       SalePrice      SalePrice
+PREDICTED    P_SalePrice    Predicted: SalePrice
+RESIDUAL     R_SalePrice    Residual: SalePrice
+ 
+ 
+ 
+ 
+ 
+The DMREG Procedure
+ 
+                 Model Information
+ 
+Training Data Set             WORK.EM_DMREG.VIEW
+DMDB Catalog                  WORK.REG_DMDB
+Target Variable               SalePrice (SalePrice)
+Target Measurement Level      Interval
+Error                         Normal
+Link Function                 Identity
+Number of Model Parameters    14
+Number of Observations        193
+ 
+ 
+                             Analysis of Variance
+ 
+                                   Sum of
+Source                 DF         Squares     Mean Square    F Value    Pr > F
+ 
+Model                  13     10251014625       788539587       4.99    <.0001
+Error                 179     28310560985       158159559
+Corrected Total       192     38561575609
+ 
+ 
+              Model Fit Statistics
+ 
+R-Square        0.2658     Adj R-Sq        0.2125
+AIC          3657.1354     BIC          3661.3131
+SBC          3702.8131     C(p)           14.0000
+ 
+ 
+                   Type 3 Analysis of Effects
+ 
+                                      Sum of
+Effect                      DF       Squares    F Value    Pr > F
+ 
+GRP_Age                      3    1556658889       3.28    0.0222
+GRP_BasementType             2     617749895       1.95    0.1449
+GRP_Baths                    1    10143264.2       0.06    0.8004
+GRP_CentralAir               1     200594978       1.27    0.2616
+GRP_FirePlace                1     762095509       4.82    0.0294
+GRP_G_ConstructionType       1     510803120       3.23    0.0740
+GRP_GarageSize               1     881395196       5.57    0.0193
+GRP_TotalArea                3    2974342378       6.27    0.0005
+ 
+ 
+                  Analysis of Maximum Likelihood Estimates
+ 
+                                              Standard
+Parameter                   DF    Estimate       Error    t Value    Pr > |t|
+ 
+Intercept                    1     68329.8      2532.9      26.98      <.0001
+GRP_Age                2     1      5115.6      1732.5       2.95      0.0036
+GRP_Age                3     1     -1089.5      1682.9      -0.65      0.5182
+GRP_Age                4     1     -1092.2      1681.7      -0.65      0.5169
+GRP_BasementType       2     1      3710.2      2223.6       1.67      0.0970
+GRP_BasementType       3     1      2435.4      3187.9       0.76      0.4459
+GRP_Baths              3     1      -275.9      1089.3      -0.25      0.8004
+GRP_CentralAir         2     1      1212.3      1076.5       1.13      0.2616
+GRP_FirePlace          2     1     -2939.1      1338.9      -2.20      0.0294
+GRP_G_ConstructionType 2     1     -2159.0      1201.4      -1.80      0.0740
+GRP_GarageSize         2     1     -3369.9      1427.5      -2.36      0.0193
+GRP_TotalArea          2     1     -1284.2      1826.6      -0.70      0.4829
+GRP_TotalArea          3     1     -3892.3      1602.6      -2.43      0.0161
+GRP_TotalArea          4     1     -1810.7      1617.3      -1.12      0.2644
+
+
+*------------------------------------------------------------*
+* Score Output
+*------------------------------------------------------------*
+
+
+*------------------------------------------------------------*
+* Report Output
+*------------------------------------------------------------*
+ 
+ 
+ 
+ 
+Fit Statistics
+ 
+Target=SalePrice Target Label=SalePrice
+ 
+   Fit
+Statistics    Statistics Label                           Train        Validation
+ 
+ _AIC_        Akaike's Information Criterion           3657.14               .
+ _ASE_        Average Squared Error               146686844.48      289953541.39
+ _AVERR_      Average Error Function              146686844.48      289953541.39
+ _DFE_        Degrees of Freedom for Error              179.00               .
+ _DFM_        Model Degrees of Freedom                   14.00               .
+ _DFT_        Total Degrees of Freedom                  193.00               .
+ _DIV_        Divisor for ASE                           193.00            145.00
+ _ERR_        Error Function                    28310560984.87    42043263500.83
+ _FPE_        Final Prediction Error              169632272.67               .
+ _MAX_        Maximum Absolute Error                  35187.36          65251.65
+ _MSE_        Mean Square Error                   158159558.57      289953541.39
+ _NOBS_       Sum of Frequencies                        193.00            145.00
+ _NW_         Number of Estimate Weights                 14.00               .
+ _RASE_       Root Average Sum of Squares             12111.43          17028.02
+ _RFPE_       Root Final Prediction Error             13024.30               .
+ _RMSE_       Root Mean Squared Error                 12576.15          17028.02
+ _SBC_        Schwarz's Bayesian Criterion             3702.81               .
+ _SSE_        Sum of Squared Errors             28310560984.87    42043263500.83
+ _SUMW_       Sum of Case Weights Times Freq            193.00            145.00
+ 
+ 
+ 
+ 
+Assessment Score Rankings
+ 
+Data Role=TRAIN Target Variable=SalePrice Target Label=SalePrice
+ 
+           Number of       Mean         Mean
+Depth    Observations     Target     Predicted
+ 
+   5          10         89195.80     90051.86
+  10          10         82002.40     87249.64
+  15           9         87602.33     83894.32
+  20          11         83408.91     81992.96
+  25          10         82434.60     80684.11
+  30           9         82323.22     78848.42
+  35          11         75563.36     77098.66
+  40          11         79949.18     75112.65
+  45           6         59941.67     74684.17
+  50          12         76609.67     74277.28
+  55           9         71832.33     73585.87
+  60           8         70547.75     72786.79
+  65          14         74707.29     72368.10
+  70           6         72947.00     72152.78
+  75          11         70422.82     71599.79
+  80           8         72945.38     70331.95
+  85          10         67650.00     69333.73
+  90          10         65554.40     66886.21
+  95           9         63462.56     63368.69
+ 100           9         61083.56     60529.08
+ 
+ 
+Data Role=VALIDATE Target Variable=SalePrice Target Label=SalePrice
+ 
+           Number of       Mean         Mean
+Depth    Observations     Target     Predicted
+ 
+   5           8         89757.25     91239.33
+  10           9         76667.22     86422.72
+  15           5         63480.80     85219.66
+  20           8         68816.25     82425.06
+  25           8         69448.50     80790.49
+  30           6         79280.83     79042.27
+  35           7         79802.86     77953.04
+  40           7         71691.29     75621.46
+  45          16         72464.50     74358.70
+  55           6         72149.50     73252.20
+  60           8         74948.75     72694.28
+  65           8         77678.38     72343.29
+  70           6         80767.33     72146.52
+  75           8         64156.13     71374.16
+  80           8         68557.50     70390.30
+  85           6         65650.83     70033.96
+  90           7         71799.86     68378.60
+  95           7         69150.14     64658.48
+ 100           7         60734.43     58325.92
+ 
+ 
+ 
+ 
+Assessment Score Distribution
+ 
+Data Role=TRAIN Target Variable=SalePrice Target Label=SalePrice
+ 
+                             Mean         Mean        Number of       Model
+ Range for Predicted        Target     Predicted    Observations      Score
+ 
+92223.718 -  94099.105     96504.33     93731.30          3         93161.41
+88472.942 -  90348.330    102301.67     89229.34          3         89410.64
+86597.555 -  88472.942     79552.00     87669.47         12         87535.25
+84722.167 -  86597.555     86978.00     85724.61          4         85659.86
+82846.780 -  84722.167     86145.00     83331.46         10         83784.47
+80971.392 -  82846.780     80041.20     81516.33         10         81909.09
+79096.004 -  80971.392     85417.89     80426.95          9         80033.70
+77220.617 -  79096.004     77711.42     78466.68         12         78158.31
+75345.229 -  77220.617     79487.44     76518.21          9         76282.92
+73469.841 -  75345.229     73588.76     74460.73         33         74407.54
+71594.454 -  73469.841     73051.41     72366.57         39         72532.15
+69719.066 -  71594.454     67772.86     70363.07         14         70656.76
+67843.679 -  69719.066     69220.67     68905.63          9         68781.37
+65968.291 -  67843.679     66988.00     66724.54          6         66905.98
+64092.903 -  65968.291     71237.00     65347.01          4         65030.60
+62217.516 -  64092.903     61380.00     63293.69          5         63155.21
+60342.128 -  62217.516     57523.00     61920.83          7         61279.82
+58466.740 -  60342.128     66395.67     59672.08          3         59404.43
+56591.353 -  58466.740     56025.00     56591.35          1         57529.05
+ 
+ 
+Data Role=VALIDATE Target Variable=SalePrice Target Label=SalePrice
+ 
+                            Mean         Mean        Number of       Model
+ Range for Predicted       Target     Predicted    Observations      Score
+ 
+92131.636 -  94099.105    98029.25     94099.11          4         93115.37
+88196.697 -  90164.166    95954.50     88867.79          2         89180.43
+86229.227 -  88196.697    75507.80     87457.78          5         87212.96
+84261.758 -  86229.227    69445.64     85672.41         11         85245.49
+82294.288 -  84261.758    74362.25     83323.97          4         83278.02
+80326.819 -  82294.288    67389.08     81035.71         12         81310.55
+78359.349 -  80326.819    79280.83     79042.27          6         79343.08
+76391.880 -  78359.349    79802.86     77953.04          7         77375.61
+74424.410 -  76391.880    69890.91     75304.82         11         75408.15
+72456.941 -  74424.410    74036.85     73530.92         26         73440.68
+70489.471 -  72456.941    73454.22     71888.71         23         71473.21
+68522.002 -  70489.471    68640.75     70018.90         16         69505.74
+66554.532 -  68522.002    69136.25     67713.09          4         67538.27
+64587.063 -  66554.532    69860.00     65584.57          5         65570.80
+60652.124 -  62619.593    67375.50     62343.26          2         61635.86
+58684.654 -  60652.124    69047.67     60002.59          3         59668.39
+56717.185 -  58684.654    60168.00     57841.31          3         57700.92
+54749.715 -  56717.185    37494.00     54749.72          1         55733.45
